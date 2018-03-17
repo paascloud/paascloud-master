@@ -1,0 +1,162 @@
+server:
+  port: 7979
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    multipart:
+      enabled: true
+      max-request-size: 50MB
+      max-file-size: 50MB
+  profiles:
+    active: @profileActive@
+  application:
+    name: @pom.artifactId@
+  boot:
+    admin:
+      username: ${security.user.name:admin}
+      password: ${security.user.password:admin}
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+management:
+  security:
+    enabled: false
+info:
+  owner: paascloud.net@gmail.com
+  version: @project.version@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@paascloud-eureka:eureka:8761/eureka/
+    instance:
+      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  forceOriginalQueryStringEncoding: true
+  routes:
+    uac-route:
+      path: /uac/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-uac
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    mdc-route:
+      path: /mdc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-mdc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    omc-route:
+      path: /omc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-omc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    opc-route:
+      path: /opc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-opc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    mall-route:
+      path: /mall/**
+      sensitiveHeaders:
+      service-id: paascloud-web-mall
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    tpc-route:
+      path: /tpc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-tpc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+  add-proxy-headers: true
+  add-host-header: true
+hystrix:
+  propagate:
+    request-attribute:
+      enabled: true
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+ribbon:
+  eager-load:
+    enabled: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  OkToRetryOnAllOperations: false
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
+security:
+  oauth2:
+    client:
+      clientId: paascloud-client-gateway
+      clientSecret: paascloudClientSecret
+      access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
+      user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
+    resource:
+      user-info-uri: http://paascloud-provider-uac:8000/user
+      prefer-token-info: false
+      jwt:
+        key-uri: http://paascloud-provider-uac:8000/oauth/token_key
+proxy:
+  auth:
+    routes:
+      uac-route: oauth2
+      mdc-route: oauth2
+logging:
+  level.root: info
+  path: logs/
+  file: ${spring.application.name}.log
+paascloud:
+  enableSqlLogInterceptor: false

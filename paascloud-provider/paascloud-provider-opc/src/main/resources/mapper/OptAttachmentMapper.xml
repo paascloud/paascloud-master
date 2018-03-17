@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.OptAttachmentMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.OptAttachment">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="version" property="version" jdbcType="INTEGER"/>
+    <result column="center_name" property="centerName" jdbcType="VARCHAR"/>
+    <result column="bucket_name" property="bucketName" jdbcType="VARCHAR"/>
+    <result column="ref_no" property="refNo" jdbcType="VARCHAR"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="path" property="path" jdbcType="VARCHAR"/>
+    <result column="type" property="type" jdbcType="VARCHAR"/>
+    <result column="format" property="format" jdbcType="VARCHAR"/>
+    <result column="description" property="description" jdbcType="VARCHAR"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <delete id="deleteByIdList">
+    delete from pc_opt_attachment
+    where id in
+    <foreach collection="idList" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="queryAttachment" resultType="com.paascloud.provider.model.dto.attachment.OptAttachmentRespDto">
+    SELECT
+    id,
+    bucket_name,
+    ref_no,
+    path,
+    name,
+    type,
+    format,
+    description
+    FROM
+    pc_opt_attachment
+    <where>
+      <if test=" id != null">
+        id = #{id}
+      </if>
+      <if test=" refNo != null and refNo != ''">
+        ref_no = #{refNo}
+      </if>
+    </where>
+  </select>
+  <select id="queryAttachmentByRefNo" resultType="java.lang.Long">
+    SELECT id
+    FROM
+      pc_opt_attachment
+    WHERE
+      ref_no = #{refNo}
+  </select>
+  <select id="listExpireFile" resultType="com.paascloud.provider.model.domain.OptAttachment">
+    SELECT
+      id,
+      bucket_name,
+      path,
+      name
+    FROM
+      pc_opt_attachment
+    WHERE
+      ref_no = ''
+      AND DATE_SUB(CURDATE(), INTERVAL 1 DAY) &gt; date(created_time)
+  </select>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.OmcShippingMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.OmcShipping">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+        <result column="receiver_name" property="receiverName" jdbcType="VARCHAR"/>
+        <result column="receiver_phone_no" property="receiverPhoneNo" jdbcType="VARCHAR"/>
+        <result column="receiver_mobile_no" property="receiverMobileNo" jdbcType="VARCHAR"/>
+        <result column="province_id" property="provinceId" jdbcType="BIGINT"/>
+        <result column="province_name" property="provinceName" jdbcType="VARCHAR"/>
+        <result column="city_id" property="cityId" jdbcType="BIGINT"/>
+        <result column="city_name" property="cityName" jdbcType="VARCHAR"/>
+        <result column="district_name" property="districtName" jdbcType="VARCHAR"/>
+        <result column="district_id" property="districtId" jdbcType="BIGINT"/>
+        <result column="street_id" property="streetId" jdbcType="BIGINT"/>
+        <result column="street_name" property="streetName" jdbcType="VARCHAR"/>
+        <result column="detail_address" property="detailAddress" jdbcType="VARCHAR"/>
+        <result column="receiver_zip_code" property="receiverZipCode" jdbcType="VARCHAR"/>
+        <result column="default_address" property="defaultAddress" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+        <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, version, receiver_name, receiver_phone_no, receiver_mobile_no, province_id,
+        province_name, city_id, city_name, district_name, district_id, street_id, street_name,
+        detail_address, receiver_zip_code, creator, creator_id, created_time, last_operator,
+        last_operator_id, update_time
+    </sql>
+
+    <delete id="deleteByShippingIdUserId" parameterType="map">
+        DELETE FROM pc_omc_shipping
+        WHERE id = #{shippingId}
+              AND user_id = #{userId}
+    </delete>
+    <select id="selectByShippingIdUserId" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from pc_omc_shipping
+        where id = #{shippingId}
+        and user_id = #{userId}
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from pc_omc_shipping
+        where user_id = #{userId}
+    </select>
+    <select id="selectDefaultAddressByUserId"
+            resultType="com.paascloud.provider.model.domain.OmcShipping">
+        SELECT
+            <include refid="Base_Column_List"/>
+        from pc_omc_shipping
+        where id = #{shippingId}
+        and default = 1
+    </select>
+
+</mapper>

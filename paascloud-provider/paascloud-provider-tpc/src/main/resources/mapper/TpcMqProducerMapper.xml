@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.TpcMqProducerMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.TpcMqProducer">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="application_name" property="applicationName" jdbcType="VARCHAR"/>
+    <result column="producer_code" property="producerCode" jdbcType="VARCHAR"/>
+    <result column="producer_name" property="producerName" jdbcType="VARCHAR"/>
+    <result column="query_message_url" property="queryMessageUrl" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ${alias}.id,
+    ${alias}.version,
+    ${alias}.aplication_name,
+    ${alias}.producer_code,
+    ${alias}.producer_name,
+    ${alias}.query_message_url,
+    ${alias}.status,
+    ${alias}.remark,
+    ${alias}.creator,
+    ${alias}.creator_id,
+    ${alias}.created_time,
+    ${alias}.last_operator,
+    ${alias}.last_operator_id,
+    ${alias}.update_time
+  </sql>
+
+  <sql id="Base_Topic_Column_List">
+    ${alias}.version as topic_version,
+    ${alias}.producer_id,
+    ${alias}.topic_code,
+    ${alias}.topic_name,
+    ${alias}.mq_type,
+    ${alias}.msg_type,
+    ${alias}.status as topic_status,
+    ${alias}.remarks as topic_remarks,
+    ${alias}.creator as topic_creator,
+    ${alias}.creator_id as topic_created_time,
+    ${alias}.created_time as topic_created_time,
+    ${alias}.last_operator as topic_last_operator,
+    ${alias}.last_operator_id as topic_last_operator_id,
+    ${alias}.update_time as topic_update_time
+  </sql>
+  <delete id="deletePublishByProducerId">
+    DELETE FROM pc_tpc_mq_publish WHERE producer_id = #{producerId}
+  </delete>
+
+  <resultMap id="TpcMqProducerVoResultMap" extends="BaseResultMap" type="com.paascloud.provider.model.vo.TpcMqProducerVo">
+    <collection property="mqTopicVoList" ofType="com.paascloud.provider.model.vo.TpcMqTopicVo">
+      <result property="topicCode" column="topic_code"/>
+      <result property="topicName" column="topic_name"/>
+      <result property="status" column="topic_status"/>
+      <result property="lastOperator" column="topic_last_operator"/>
+      <result property="updateTime" column="topic_update_time"/>
+    </collection>
+  </resultMap>
+
+  <select id="listTpcMqProducerVoWithPage" resultMap="TpcMqProducerVoResultMap">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="producer"/>
+    </include>
+    ,
+    <include refid="Base_Topic_Column_List">
+      <property name="alias" value="topic"/>
+    </include>
+    from pc_tpc_mq_producer producer
+    LEFT JOIN pc_tpc_mq_publish publish ON producer.id = publish.producer_id
+    LEFT JOIN pc_tpc_mq_topic topic on topic.id = publish.topic_id
+    where 1=1
+    <if test="producerCode != null and producerCode !=''">
+      AND producer.producer_code LIKE concat(#{producerCode}, '%')
+    </if>
+    <if test="producerName != null and producerName !=''">
+      AND producer.producer_name LIKE concat(#{producerName}, '%')
+    </if>
+    <if test="status != null and status !=''">
+      AND producer.status = #{status,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <resultMap id="TpcMqPublishVoResultMap" extends="BaseResultMap" type="com.paascloud.provider.model.vo.TpcMqPublishVo">
+    <result property="topicCode" column="topic_code"/>
+    <result property="topicName" column="topic_name"/>
+  </resultMap>
+
+  <select id="listTpcMqPublishVoWithPage" resultMap="TpcMqPublishVoResultMap">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="producer"/>
+    </include>
+    ,
+    topic.topic_code,
+    topic.topic_name
+    from
+    pc_tpc_mq_publish publish
+    LEFT JOIN pc_tpc_mq_producer producer ON publish.producer_id = producer.id
+    LEFT JOIN pc_tpc_mq_topic topic on topic.id = publish.topic_id
+    WHERE 1 = 1
+    <if test="producerCode != null and producerCode !=''">
+      AND producer.producer_code LIKE concat(#{producerCode}, '%')
+    </if>
+    <if test="status != null and status !=''">
+      AND producer.status = #{status,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getByPid" resultType="com.paascloud.provider.model.domain.TpcMqProducer">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="producer"/>
+    </include>
+    from pc_tpc_mq_producer producer where producer.producer_code = #{pid}
+  </select>
+</mapper>

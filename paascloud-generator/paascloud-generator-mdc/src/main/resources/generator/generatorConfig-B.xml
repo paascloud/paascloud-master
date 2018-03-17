@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE generatorConfiguration
+      PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+      "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+    <generatorConfiguration>
+    <properties resource="config.properties"/>
+    <!-- 数据库驱动 -->
+        <context id="DB2Tables"  targetRuntime="MyBatis3">
+            <commentGenerator>
+                <property name="suppressDate" value="true"/>
+                <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+                <property name="suppressAllComments" value="false"/>
+            </commentGenerator>
+            <!-- 数据库链接URL, 用户名、密码 -->
+            <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.url}" userId="${jdbc.user}" password="${jdbc.password}">
+            </jdbcConnection>
+            <javaTypeResolver>
+                <property name="forceBigDecimals" value="false"/>
+            </javaTypeResolver>
+            <!-- 生成模型的包名和位置 -->
+            <javaModelGenerator targetPackage="com.paascloud.provider.model.domain" targetProject="D:\git\liuzm-git\paascloud-git\paascloud-master\paascloud-generator\paascloud-generator-mdc\src\main\java">
+                <property name="enableSubPackages" value="true"/>
+                <property name="trimStrings" value="true"/>
+            </javaModelGenerator>
+            <!-- 生成映射文件的包名和位置 -->
+            <sqlMapGenerator targetPackage="mapper" targetProject="D:\git\liuzm-git\paascloud-git\paascloud-master\paascloud-generator\paascloud-generator-mdc\src\main\resources">
+                <property name="enableSubPackages" value="true"/>
+            </sqlMapGenerator>
+            <!-- 生成DAO的包名和位置 -->
+            <javaClientGenerator type="XMLMAPPER" targetPackage="com.paascloud.provider.mapper" targetProject="D:\git\liuzm-git\paascloud-git\paascloud-master\paascloud-generator\paascloud-generator-mdc\src\main\java">
+                <property name="enableSubPackages" value="true"/>
+            </javaClientGenerator>
+            <!-- 要生成哪些表 -->
+             <!--<table tableName="pc_mdc_address" domainObjectName="MdcAddress"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+            <!--<table tableName="pc_mdc_product" domainObjectName="MdcProduct"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_product_category" domainObjectName="MdcProductCategory"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_dict" domainObjectName="MdcDict"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_mq_consumer" domainObjectName="MdcMqConsumer"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_mq_consumer_tag" domainObjectName="MdcMqConsumerTag"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_mq_producer" domainObjectName="MdcMqProducer"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_mq_tag" domainObjectName="MdcMqTag"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_mq_topic" domainObjectName="MdcMqTopic"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+            <table tableName="pc_mdc_product_category" domainObjectName="MdcProductCategory"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            <table tableName="pc_mdc_product" domainObjectName="MdcProduct"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+            -->
+          <table tableName="pc_mdc_exception_log" domainObjectName="MdcExceptionLog"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        </context>
+    </generatorConfiguration>

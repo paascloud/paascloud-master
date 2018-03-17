@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.TpcMqMessageMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.TpcMqMessage">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="version" property="version" jdbcType="INTEGER"/>
+    <result column="message_key" property="messageKey" jdbcType="VARCHAR"/>
+    <result column="message_topic" property="messageTopic" jdbcType="VARCHAR"/>
+    <result column="message_tag" property="messageTag" jdbcType="VARCHAR"/>
+    <result column="message_type" property="messageType" jdbcType="INTEGER"/>
+    <result column="delay_level" property="delayLevel" jdbcType="INTEGER"/>
+    <result column="order_type" property="orderType" jdbcType="INTEGER"/>
+    <result column="message_status" property="messageStatus" jdbcType="INTEGER"/>
+    <result column="task_status" property="taskStatus" jdbcType="INTEGER"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="resend_times" property="resendTimes" jdbcType="INTEGER"/>
+    <result column="dead" property="dead" jdbcType="INTEGER"/>
+    <result column="next_exe_time" property="nextExeTime" jdbcType="INTEGER"/>
+    <result column="yn" property="yn" jdbcType="INTEGER"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.paascloud.provider.model.domain.TpcMqMessage" extends="BaseResultMap">
+    <result column="message_body" property="messageBody" jdbcType="LONGVARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ${alias}.id,
+    ${alias}.version,
+    ${alias}.message_key,
+    ${alias}.message_topic,
+    ${alias}.message_tag,
+    ${alias}.message_type,
+    ${alias}.producer_group,
+    ${alias}.delay_level,
+    ${alias}.order_type,
+    ${alias}.message_status,
+    ${alias}.task_status,
+    ${alias}.update_time,
+    ${alias}.resend_times,
+    ${alias}.dead,
+    ${alias}.next_exe_time,
+    ${alias}.yn,
+    ${alias}.creator,
+    ${alias}.creator_id,
+    ${alias}.created_time,
+    ${alias}.last_operator,
+    ${alias}.last_operator_id
+  </sql>
+  <sql id="Blob_Column_List">
+    ${alias}.message_body
+  </sql>
+  <update id="addTaskExeCountById">
+    UPDATE pc_tpc_mq_message
+    SET resend_times = resend_times + 1, update_time = now()
+    WHERE id = #{messageId}
+  </update>
+  <update id="updateAlreadyDeadByMessageId">
+    UPDATE pc_tpc_mq_message
+    SET dead = 1, update_time = now(), task_status = 4
+    WHERE id = #{messageId}
+  </update>
+  <update id="updateMqMessageTaskStatus">
+    UPDATE pc_tpc_mq_message
+    SET task_status = #{taskStatus}, update_time = now()
+    WHERE id = #{id}
+    and task_status IN
+    <foreach collection="preStatusList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </update>
+
+  <delete id="deleteMessageByMessageKey">
+    DELETE FROM pc_tpc_mq_message
+    WHERE message_key = #{messageKey,jdbcType=VARCHAR}
+  </delete>
+  <delete id="batchDeleteMessage">
+    delete from pc_tpc_mq_message
+    where message_key IN
+    <foreach collection="messageKeyList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="getByMessageKey" resultType="tpcMqMessage">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    ,
+    <include refid="Blob_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    FROM pc_tpc_mq_message message
+    WHERE message.message_key = #{messageKey,jdbcType=VARCHAR}
+  </select>
+  <select id="queryWaitingConfirmMessageKeyList" resultType="java.lang.String">
+    SELECT message_key
+    FROM
+      pc_tpc_mq_message
+    WHERE
+      mod(id, #{shardingTotalCount}) = #{shardingItem}
+      AND task_status = #{taskStatus}
+      AND message_status = #{messageStatus}
+      AND created_time &lt; #{createTimeBefore}
+      AND producer_group = #{producerGroup}
+      AND yn = 0
+    ORDER BY update_time
+    LIMIT ${fetchNum}
+  </select>
+  <select id="listMessageForWaitingProcess" resultMap="ResultMapWithBLOBs">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    ,
+    <include refid="Blob_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    FROM
+    pc_tpc_mq_message message
+    WHERE
+    mod(message.id, #{shardingTotalCount}) = #{shardingItem}
+    AND message.task_status = #{taskStatus}
+    AND message.message_status = #{messageStatus}
+    AND message.created_time &lt; #{createTimeBefore}
+    AND message.yn = 0
+    ORDER BY update_time
+    LIMIT ${fetchNum}
+  </select>
+  <select id="listReliableMessageVoWithPage" resultType="com.paascloud.provider.model.vo.TpcMessageVo">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    ,
+    <include refid="Blob_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    FROM
+    pc_tpc_mq_message message
+    WHERE 1 = 1
+    <if test="messageKey != null and messageKey !=''">
+      AND message.message_key LIKE concat('%', #{messageKey,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="messageTopic != null and messageTopic !=''">
+      AND message.message_topic = #{messageTopic,jdbcType=VARCHAR}
+    </if>
+    <if test="messageTag != null and messageTag !=''">
+      AND message.message_tag = #{messageTag,jdbcType=VARCHAR}
+    </if>
+    <if test="producerGroup != null and producerGroup !=''">
+      AND message.producer_group = #{producerGroup,jdbcType=VARCHAR}
+    </if>
+    <if test="messageStatus != null">
+      AND message.message_status = #{messageStatus,jdbcType=INTEGER}
+    </if>
+    <if test="startQueryTime != null and endQueryTime != null">
+      AND message.created_time BETWEEN #{startQueryTime} AND #{endQueryTime}
+    </if>
+    ORDER BY update_time desc
+  </select>
+
+  <resultMap id="TpcMqConsumerVoResultMap" extends="ResultMapWithBLOBs" type="com.paascloud.provider.model.vo.TpcMessageVo">
+    <collection property="mqConfirmVoList" ofType="com.paascloud.provider.model.vo.TpcMqConfirmVo">
+      <result property="consumerCode" column="consumerCode"/>
+      <result property="consumeCount" column="consumeCount"/>
+      <result property="createdTime" column="confirmCreatedTime"/>
+      <result property="updateTime" column="confirmUpdateTime"/>
+      <result property="status" column="confirmStatus"/>
+    </collection>
+  </resultMap>
+
+  <select id="listReliableMessageVo" resultMap="TpcMqConsumerVoResultMap">
+    SELECT
+    confirm.consumer_code as consumerCode,
+    confirm.consume_count as consumeCount,
+    confirm.created_time AS confirmCreatedTime,
+    confirm.update_time AS confirmUpdateTime,
+    confirm.status as confirmStatus,
+    <include refid="Base_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    ,
+    <include refid="Blob_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    from pc_tpc_mq_message message
+    LEFT JOIN pc_tpc_mq_confirm confirm on message.id = confirm.message_id
+    WHERE message.id IN
+    <foreach collection="messageIdList" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.MdcExceptionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.MdcExceptionLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="application_name" property="applicationName" jdbcType="VARCHAR" />
+    <result column="exception_simple_name" property="exceptionSimpleName" jdbcType="VARCHAR" />
+    <result column="exception_message" property="exceptionMessage" jdbcType="VARCHAR" />
+    <result column="exception_cause" property="exceptionCause" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.paascloud.provider.model.domain.MdcExceptionLog" extends="BaseResultMap" >
+    <result column="exception_stack" property="exceptionStack" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, application_name, exception_simple_name, exception_message, exception_cause,
+    creator, creator_id, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    exception_stack
+  </sql>
+  <select id="queryExceptionListWithPage" resultMap="ResultMapWithBLOBs">
+    SELECT
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM
+    pc_mdc_exception_log log
+    WHERE 1 = 1
+    <if test="exceptionCause != null and exceptionCause != ''">
+      AND exception_cause LIKE concat(#{exceptionCause}, '%')
+    </if>
+    <if test="exceptionStack != null and exceptionStack != ''">
+      AND exception_stack LIKE concat(#{exceptionStack}, '%')
+    </if>
+    <if test="creator != null and creator != ''">
+      AND creator LIKE concat(#{creator}, '%')
+    </if>
+    <if test="startQueryTime != null and endQueryTime != null">
+      AND create_time BETWEEN #{startQueryTime} AND #{endQueryTime}
+    </if>
+    ORDER BY log.create_time desc
+  </select>
+</mapper>

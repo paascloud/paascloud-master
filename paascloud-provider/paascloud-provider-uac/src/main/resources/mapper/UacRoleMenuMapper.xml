@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paascloud.provider.mapper.UacRoleMenuMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.UacRoleMenu">
+        <id column="role_id" jdbcType="BIGINT" property="roleId"/>
+        <id column="menu_id" jdbcType="BIGINT" property="menuId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    </sql>
+    <sql id="Base_Where_Condition">
+    </sql>
+    <sql id="Base_Set_Condition">
+    </sql>
+    <insert id="addRoleMenuList" parameterType="java.util.List" >
+        INSERT INTO pc_uac_role_menu(role_id,menu_id) VALUES
+        <foreach collection="list" item = "rolemenu"  separator=",">
+            (#{rolemenu.roleId},#{rolemenu.menuId})
+        </foreach>
+    </insert>
+  <delete id="deleteByRoleIdList">
+    delete from pc_uac_role_menu
+    where role_id in
+    <foreach collection="roleIdList" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="countChildMenuNum" parameterType="java.lang.String" resultType="com.paascloud.provider.model.vo.role.MenuCountVo">
+        SELECT
+            tum.id,
+            tum.menu_name AS menuName,
+            1             AS childNum
+        FROM
+            pc_uac_role_menu turm
+            INNER JOIN pc_uac_menu tum ON tum.id = turm.menu_id
+        WHERE
+            turm.role_id = #{roleId}
+            AND tum.LEVEL = '1'
+            AND tum.id NOT IN (
+                SELECT tum2.pid
+                FROM
+                    pc_uac_role_menu turm
+                    INNER JOIN pc_uac_menu tum ON tum.id = turm.menu_id
+                    LEFT JOIN pc_uac_menu tum2 ON tum2.pid = tum.id
+                    RIGHT JOIN pc_uac_role_menu turm2 ON turm2.menu_id = tum2.id
+                                                          AND turm2.role_id = #{roleId}
+                WHERE
+                    1 = 1
+                    AND tum.LEVEL = 1
+                    AND turm.role_id = #{roleId}
+                GROUP BY
+                    tum2.pid)
+    </select>
+</mapper>

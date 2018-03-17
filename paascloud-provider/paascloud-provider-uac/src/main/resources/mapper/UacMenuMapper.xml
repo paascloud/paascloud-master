@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paascloud.provider.mapper.UacMenuMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.UacMenu">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="pid" jdbcType="BIGINT" property="pid"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="leaf" jdbcType="INTEGER" property="leaf"/>
+        <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="application_id" jdbcType="BIGINT" property="applicationId"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="creator_id" jdbcType="BIGINT" property="creatorId"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="last_operator" jdbcType="VARCHAR" property="lastOperator"/>
+        <result column="last_operator_id" jdbcType="BIGINT" property="lastOperatorId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id ="Base_OrderBy_Condition">
+        <if test="orderBy != null and orderBy !=''">
+            ORDER BY ${orderBy}
+        </if>
+    </sql>
+    <sql id="Base_Column_List">
+        m.id as id,
+        m.version as version,
+        m.menu_code as menuCode,
+        m.menu_name as menuName,
+        m.status as status,
+        m.url as url,
+        m.icon as icon,
+        m.pid as pid,
+        m.application_id as applicationId,
+        m.level as level,
+        m.leaf as leaf,
+        m.number as number,
+        m.remark as remark,
+        m.creator as creator,
+        m.creator_id as creatorId,
+        m.created_time as createdTime,
+        m.last_operator as lastOperator,
+        m.last_operator_id as lastOpetator,
+        m.update_time as updateTime
+    </sql>
+    <sql id="Base_Where_Condition">
+        <if test="id != null and id !=''">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="version != null">
+            AND version = #{version,jdbcType=INTEGER}
+        </if>
+        <if test="menuCode != null and menuCode !=''">
+            AND menu_code = #{menuCode,jdbcType=VARCHAR}
+        </if>
+        <if test="menuName != null and menuName !=''">
+            AND menu_name = #{menuName,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status !=''">
+            AND status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="url != null and url !=''">
+            AND url = #{url,jdbcType=VARCHAR}
+        </if>
+        <if test="icon != null and icon !=''">
+            AND icon = #{icon,jdbcType=VARCHAR}
+        </if>
+        <if test="pid != null">
+            AND pid = #{pid,jdbcType=BIGINT}
+        </if>
+        <if test="applicationId != null">
+            AND application_id = #{applicationId,jdbcType=BIGINT}
+        </if>
+
+        <if test="level != null ">
+            AND level = #{level,jdbcType=INTEGER}
+        </if>
+        <if test="leaf != null">
+            AND leaf = #{leaf,jdbcType=INTEGER}
+        </if>
+        <if test="number != null">
+            AND number = #{number,jdbcType=INTEGER}
+        </if>
+        <if test="remark != null and remark !=''">
+            AND remark = #{remark,jdbcType=VARCHAR}
+        </if>
+        <if test="creator != null and creator !=''">
+            AND creator = #{creator,jdbcType=VARCHAR}
+        </if>
+        <if test="creatorId != null and creatorId !=''">
+            AND creator_id = #{creatorId,jdbcType=BIGINT}
+        </if>
+        <if test="createdTime != null">
+            AND created_time = #{createdTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="lastOperator != null and lastOperator !=''">
+            AND last_operator = #{lastOperator,jdbcType=VARCHAR}
+        </if>
+        <if test="lastOperatorId != null and lastOperatorId !=''">
+            AND last_operator_id = #{lastOperatorId,jdbcType=BIGINT}
+        </if>
+        <if test="updateTime != null">
+            AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+    </sql>
+    <sql id ="Base_Set_Condition">
+        <set>
+            <if test="version != null">
+                version = version + 1,
+            </if>
+            <if test="menuCode != null">
+                menu_code = #{menuCode,jdbcType=VARCHAR},
+            </if>
+            <if test="menuName != null">
+                menu_name = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=BIGINT},
+            </if>
+            <if test="applicationId != null">
+                application_id = #{applicationId,jdbcType=BIGINT},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="leaf != null">
+                leaf = #{leaf,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                number = #{number,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=BIGINT},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastOperator != null">
+                last_operator = #{lastOperator,jdbcType=VARCHAR},
+            </if>
+            <if test="lastOperatorId != null">
+                last_operator_id = #{lastOperatorId,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+    </sql>
+    <select id="findMenuCodeListByUserId" resultType="java.lang.String">
+        SELECT DISTINCT
+        m.url as url
+        FROM
+        pc_uac_role r,  pc_uac_role_menu rm, pc_uac_menu m, pc_uac_user u , pc_uac_role_user ur
+        WHERE
+        1=1
+        and	r.id = rm.role_id
+        and rm.menu_id = m.id
+        and u.id = ur.user_id
+        and ur.role_id = r.id
+        and u.id = #{userId,jdbcType=BIGINT}
+        order by m.id asc
+    </select>
+    <select id="findMenuVoListByUserId" resultType="com.paascloud.provider.model.vo.MenuVo">
+        SELECT
+        m.menu_code as menuCode,
+        m.menu_name as menuName,
+        m.url as url,
+        m.pid as pid,
+        m.id as id,
+        m.icon as icon
+        FROM
+        pc_uac_role r,  pc_uac_role_menu rm, pc_uac_menu m, pc_uac_user u , pc_uac_role_user ur
+        WHERE
+        1=1
+        and	r.id = rm.role_id
+        and rm.menu_id = m.id
+        and u.id = ur.user_id
+        and ur.role_id = r.id
+        and u.id = #{userId,jdbcType=BIGINT}
+        and m.status='ENABLE'
+        order by  m.level asc, m.number asc
+    </select>
+    <select id="selectMenuList" resultMap="BaseResultMap" parameterType="uacUser">
+        SELECT
+            <include refid="Base_Column_List" />
+        From
+            pc_uac_menu m
+        WHERE
+            1 =1 <include refid="Base_Where_Condition" />
+        <if test="orderBy != null and orderBy != ''">
+            ORDER BY ${orderBy}
+        </if>
+    </select>
+    <update id="updateMenu" parameterType="uacMenu">
+        update pc_uac_menu
+          <include refid="Base_Set_Condition"/>
+        where 1 =1
+          <include refid="Base_Where_Condition"/>
+    </update>
+    <select id="selectMenuChildCountByPid" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+          pc_uac_menu mp
+        INNER JOIN
+            pc_uac_menu mc ON mp.id = mc.pid
+        where
+             mp.id=#{pid,jdbcType=BIGINT}
+    </select>
+    <select id="selectByUrl" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            pc_uac_menu m
+        WHERE
+            m.url = #{url, jdbcType=VARCHAR}
+    </select>
+    <select id="listMenuListByRoleId" resultType="com.paascloud.provider.model.domain.UacMenu">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM pc_uac_menu m LEFT JOIN pc_uac_role_menu rm on m.id = rm.menu_id
+        LEFT JOIN pc_uac_role r on r.id = rm.role_id
+        where r.id = #{roleId, jdbcType=BIGINT}
+    </select>
+  <select id="listMenu" resultType="com.paascloud.provider.model.domain.UacMenu">
+    SELECT
+    <include refid="Base_Column_List" />
+    From
+    pc_uac_menu m
+    WHERE m.id IN
+    <foreach collection="menuIdList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

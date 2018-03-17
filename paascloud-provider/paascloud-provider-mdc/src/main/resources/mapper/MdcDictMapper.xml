@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.MdcDictMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.MdcDict">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="type" property="type" jdbcType="INTEGER"/>
+    <result column="dict_key" property="dictKey" jdbcType="VARCHAR"/>
+    <result column="extend_key" property="extendKey" jdbcType="VARCHAR"/>
+    <result column="dict_value" property="dictValue" jdbcType="VARCHAR"/>
+    <result column="dict_code" property="dictCode" jdbcType="VARCHAR"/>
+    <result column="dict_name" property="dictName" jdbcType="VARCHAR"/>
+    <result column="pid" property="pid" jdbcType="BIGINT"/>
+    <result column="number" property="number" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="VARCHAR"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ${alias}.id,
+    ${alias}.version,
+    ${alias}.type,
+    ${alias}.dict_key,
+    ${alias}.extend_key,
+    ${alias}.dict_value,
+    ${alias}.dict_code,
+    ${alias}.dict_name,
+    ${alias}.pid,
+    ${alias}.number,
+    ${alias}.status,
+    ${alias}.remark,
+    ${alias}.creator,
+    ${alias}.creator_id,
+    ${alias}.created_time,
+    ${alias}.last_operator,
+    ${alias}.last_operator_id,
+    ${alias}.update_time
+  </sql>
+  <select id="listDictVo" resultType="com.paascloud.provider.model.vo.MdcDictVo">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="dict"/>
+    </include>
+    from
+    pc_mdc_dict dict
+  </select>
+</mapper>

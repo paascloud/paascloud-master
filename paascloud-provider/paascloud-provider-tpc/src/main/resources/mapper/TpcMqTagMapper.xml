@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.TpcMqTagMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.TpcMqTag">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="topic_id" property="topicId" jdbcType="BIGINT"/>
+    <result column="tag_code" property="tagCode" jdbcType="VARCHAR"/>
+    <result column="tag_name" property="tagName" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    ${alias}.id, ${alias}.version, ${alias}.topic_id, ${alias}.tag_code, ${alias}.tag_name,
+    ${alias}.status, ${alias}.remark, ${alias}.creator, ${alias}.creator_id,
+    ${alias}.created_time, ${alias}.last_operator, ${alias}.last_operator_id, ${alias}.update_time
+  </sql>
+
+  <resultMap id="TpcMqTagVoResultMap" extends="BaseResultMap" type="com.paascloud.provider.model.vo.TpcMqTagVo">
+    <result property="topicCode" column="topic_code"/>
+    <result property="topicName" column="topic_name"/>
+  </resultMap>
+
+
+
+  <select id="listTpcMqTagVoWithPage" resultMap="TpcMqTagVoResultMap">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="tag"/>
+    </include>
+    ,
+    topic.topic_code,
+    topic.topic_name
+    from
+    pc_tpc_mq_tag tag
+    LEFT JOIN pc_tpc_mq_topic topic ON tag.topic_id = topic.id
+    WHERE 1 = 1
+    <if test="tagCode != null and tagCode !=''">
+      AND tag.tag_code LIKE concat(#{tagCode}, '%')
+    </if>
+    <if test="tagName != null and tagName !=''">
+      AND tag.tag_name LIKE concat(#{tagName}, '%')
+    </if>
+    <if test="topicId != null and topicId !=''">
+      AND tag.topic_id = #{topicId,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status !=''">
+      AND tag.status = #{status,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

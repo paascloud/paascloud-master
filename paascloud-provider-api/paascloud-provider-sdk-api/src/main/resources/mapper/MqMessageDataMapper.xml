@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.MqMessageDataMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.MqMessageData">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="version" property="version" jdbcType="INTEGER"/>
+    <result column="message_key" property="messageKey" jdbcType="VARCHAR"/>
+    <result column="message_topic" property="messageTopic" jdbcType="VARCHAR"/>
+    <result column="message_tag" property="messageTag" jdbcType="VARCHAR"/>
+    <result column="message_type" property="messageType" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="delay_level" property="delayLevel" jdbcType="INTEGER"/>
+    <result column="order_type" property="orderType" jdbcType="INTEGER"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="yn" property="yn" jdbcType="INTEGER"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.paascloud.provider.model.domain.MqMessageData" extends="BaseResultMap">
+    <result column="message_body" property="messageBody" jdbcType="LONGVARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ${alias}.id,
+    ${alias}.version,
+    ${alias}.message_key,
+    ${alias}.message_topic,
+    ${alias}.message_tag,
+    ${alias}.message_type,
+    ${alias}.delay_level,
+    ${alias}.order_type,
+    ${alias}.status,
+    ${alias}.creator,
+    ${alias}.creator_id,
+    ${alias}.created_time,
+    ${alias}.last_operator,
+    ${alias}.last_operator_id,
+    ${alias}.update_time,
+    ${alias}.yn
+  </sql>
+  <sql id="Blob_Column_List">
+    message_body
+  </sql>
+  <delete id="batchDeleteByIdList">
+    delete from pc_mq_message_data
+    where id IN
+    <foreach collection="idList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </delete>
+  <select id="getIdListBefore7Day" resultType="java.lang.Long">
+    SELECT id
+    FROM
+      pc_mq_message_data
+    WHERE
+      message_type = #{messageType}
+      AND mod(id, #{shardingTotalCount}) = #{shardingItem}
+      AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) &gt; date(update_time)
+    ORDER BY id
+    LIMIT ${currentPage}, ${pageSize}
+  </select>
+  <select id="getBefore7DayTotalCount" resultType="java.lang.Integer">
+    SELECT count(0)
+    FROM
+      pc_mq_message_data
+    WHERE
+      message_type = #{messageType}
+      AND mod(id, #{shardingTotalCount}) = #{shardingItem}
+      AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) &gt; date(update_time)
+  </select>
+  <select id="queryMessageKeyList" resultType="java.lang.String">
+    SELECT message_key from pc_mq_message_data
+    where message_key IN
+    <foreach collection="messageKeyList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+  <select id="queryMessageListWithPage" resultType="com.paascloud.base.dto.MqMessageVo">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    ,
+    <include refid="Blob_Column_List">
+      <property name="alias" value="message"/>
+    </include>
+    FROM
+    pc_mq_message_data message
+    WHERE 1 = 1
+    <if test="messageTopic != null and messageTopic !=''">
+      AND message.message_topic = #{messageTopic,jdbcType=VARCHAR}
+    </if>
+    <if test="messageType != null and messageType !=''">
+      AND message.message_type = #{messageType,jdbcType=VARCHAR}
+    </if>
+    <if test="messageKey != null and messageKey !=''">
+      AND message.message_key = #{messageKey,jdbcType=INTEGER}
+    </if>
+    <if test="startQueryTime != null and endQueryTime != null">
+      AND message.created_time BETWEEN #{startQueryTime} AND #{endQueryTime}
+    </if>
+    ORDER BY created_time desc
+  </select>
+</mapper>

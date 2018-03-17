@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.UacLogMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.UacLog">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="group_id" property="groupId" jdbcType="BIGINT"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="log_type" property="logType" jdbcType="VARCHAR"/>
+        <result column="log_name" property="logName" jdbcType="VARCHAR"/>
+        <result column="action_id" property="actionId" jdbcType="BIGINT"/>
+        <result column="action_code" property="actionCode" jdbcType="VARCHAR"/>
+        <result column="action_name" property="actionName" jdbcType="VARCHAR"/>
+        <result column="os" property="os" jdbcType="VARCHAR"/>
+        <result column="browser" property="browser" jdbcType="VARCHAR"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="location" property="location" jdbcType="VARCHAR"/>
+        <result column="mac" property="mac" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="request_data" property="requestData" jdbcType="VARCHAR"/>
+        <result column="request_url" property="requestUrl" jdbcType="VARCHAR"/>
+        <result column="response_data" property="responseData" jdbcType="VARCHAR"/>
+        <result column="class_name" property="className" jdbcType="VARCHAR"/>
+        <result column="method_name" property="methodName" jdbcType="VARCHAR"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="excute_time" property="excuteTime" jdbcType="BIGINT"/>
+        <result column="group_id" property="groupId" jdbcType="BIGINT"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+        <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id ="Base_OrderBy_Condition">
+        <if test="orderBy != null and orderBy !=''">
+            ORDER BY ${orderBy}
+        </if>
+    </sql>
+    <sql id="Base_Column_List">
+        log.id                   AS id               ,
+        log.group_id             AS groupId          ,
+        log.group_name           AS groupName        ,
+        log.log_type             AS logType          ,
+        log.log_name             AS logName          ,
+        log.action_id            AS actionId         ,
+        log.action_code          AS actionCode       ,
+        log.action_name          AS actionName       ,
+        log.os                   AS os               ,
+        log.browser              AS browser          ,
+        log.ip                   AS ip               ,
+        log.location             AS location         ,
+        log.mac                  AS mac              ,
+        log.description          AS description      ,
+        log.request_data         AS requestData      ,
+        log.request_url          AS requestUrl       ,
+        log.response_data        AS responseData     ,
+        log.class_name           AS className        ,
+        log.method_name          AS methodName       ,
+        log.start_time           AS startTime        ,
+        log.end_time             AS endTime          ,
+        log.excute_time          AS excuteTime       ,
+        log.creator              AS creator          ,
+        log.creator_id           AS creatorId        ,
+        log.created_time         AS createdTime      ,
+        log.last_operator        AS lastOperator     ,
+        log.last_operator_id     AS lastOperatorId   ,
+        log.update_time          AS updateTime
+    </sql>
+    <sql id="Base_Where_Condition">
+        <if test="id != null and id != ''">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="groupId != null and groupId != ''">
+            AND group_id = #{groupId,jdbcType=BIGINT}
+        </if>
+        <if test="actionId != null and actionId != ''">
+            AND action_id = #{actionId,jdbcType=BIGINT}
+        </if>
+        <if test="groupName != null and groupName != ''">
+            AND group_name = #{groupName,jdbcType=VARCHAR}
+        </if>
+        <if test="logType != null and logType != ''">
+            AND log_type = #{logType,jdbcType=VARCHAR}
+        </if>
+        <if test="logName != null and logName != ''">
+            AND log_name = #{logName,jdbcType=VARCHAR}
+        </if>
+        <if test="actionCode != null and actionCode != ''">
+            AND action_code = #{actionCode,jdbcType=VARCHAR}
+        </if>
+        <if test="actionName != null and actionName != ''">
+            AND action_name = #{actionName,jdbcType=VARCHAR}
+        </if>
+        <if test="os != null and os != ''">
+            AND os = #{os,jdbcType=VARCHAR}
+        </if>
+        <if test="browser != null and browser != ''">
+            AND browser = #{browser,jdbcType=VARCHAR}
+        </if>
+        <if test="ip != null and ip != ''">
+            AND ip = #{ip,jdbcType=VARCHAR}
+        </if>
+        <if test="mac != null and mac != ''">
+            AND mac = #{mac,jdbcType=VARCHAR}
+        </if>
+        <if test="description != null and description != ''">
+            AND description = #{description,jdbcType=VARCHAR}
+        </if>
+        <if test="requestData != null and requestData != ''">
+            AND request_data = #{requestData,jdbcType=VARCHAR}
+        </if>
+        <if test="requestUrl != null and requestUrl != ''">
+            AND request_url = #{requestUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="responseData != null and responseData != ''">
+            AND response_data = #{responseData,jdbcType=VARCHAR}
+        </if>
+        <if test="className != null and className != ''">
+            AND class_name = #{className,jdbcType=VARCHAR}
+        </if>
+        <if test="methodName != null and methodName != ''">
+            AND method_name = #{methodName,jdbcType=VARCHAR}
+        </if>
+        <if test="startTime != null">
+            AND start_time = #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endTime != null">
+            AND end_time = #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="excuteTime != null">
+            AND excute_time = #{excuteTime,jdbcType=INTEGER}
+        </if>
+        <if test="creator != null and creator != ''">
+            AND creator = #{creator,jdbcType=VARCHAR}
+        </if>
+        <if test="creatorId != null and creatorId != ''">
+            AND creator_id = #{creatorId,jdbcType=BIGINT}
+        </if>
+        <if test="createdTime != null">
+            AND created_time = #{createdTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="lastOperator != null and lastOperator != ''">
+            AND last_operator = #{lastOperator,jdbcType=VARCHAR}
+        </if>
+        <if test="lastOperatorId != null and lastOperatorId != ''">
+            AND last_operator_id = #{lastOperatorId,jdbcType=BIGINT}
+        </if>
+        <if test="updateTime != null">
+            AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+    </sql>
+    <sql id ="Base_Set_Condition">
+        <set>
+            <if test="groupId != null">
+                group_id = #{groupId,jdbcType=BIGINT},
+            </if>
+            <if test="actionId != null">
+                action_id = #{actionId,jdbcType=BIGINT},
+            </if>
+            <if test="groupName != null">
+                group_name = #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="logType != null">
+                log_type = #{logType,jdbcType=VARCHAR},
+            </if>
+            <if test="logName != null">
+                log_name = #{logName,jdbcType=VARCHAR},
+            </if>
+            <if test="actionCode != null">
+                action_code = #{actionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="actionName != null">
+                action_name = #{actionName,jdbcType=VARCHAR},
+            </if>
+            <if test="os != null">
+                os = #{os,jdbcType=VARCHAR},
+            </if>
+            <if test="browser != null">
+                browser = #{browser,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="mac != null">
+                mac = #{mac,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="requestData != null">
+                request_data = #{requestData,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUrl != null">
+                request_url = #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="responseData != null">
+                response_data = #{responseData,jdbcType=VARCHAR},
+            </if>
+            <if test="className != null">
+                class_name = #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="methodName != null">
+                method_name = #{methodName,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="excuteTime != null">
+                excute_time = #{excuteTime,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=BIGINT},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastOperator != null">
+                last_operator = #{lastOperator,jdbcType=VARCHAR},
+            </if>
+            <if test="lastOperatorId != null">
+                last_operator_id = #{lastOperatorId,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+    </sql>
+    <select id="selectUserLogListByUserId" parameterType="long" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            pc_uac_log log
+        WHERE
+            log.creator_id = #{userId}
+        ORDER BY log.created_time desc
+    </select>
+    <select id="queryLogListWithPage" resultType="com.paascloud.provider.model.domain.UacLog">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        pc_uac_log log
+        WHERE 1 = 1
+        <if test="menuId != null and menuId != ''">
+            AND action_id in (SELECT id from pc_uac_action action where action.menu_id = #{menuId})
+        </if>
+        <if test="logType != null and logType != ''">
+            AND log_type LIKE concat(#{logType}, '%')
+        </if>
+        <if test="actionCode != null and actionCode != ''">
+            AND action_code LIKE concat(#{actionCode}, '%')
+        </if>
+        <if test="actionName != null and actionName != ''">
+            AND action_name LIKE concat(#{actionName}, '%')
+        </if>
+        <if test="creator != null and creator != ''">
+            AND creator LIKE concat(#{creator}, '%')
+        </if>
+        <if test="ip != null and ip != ''">
+            AND ip LIKE concat(#{ip}, '%')
+        </if>
+        <if test="location != null and location != ''">
+            AND location LIKE concat(#{location}, '%')
+        </if>
+        <if test="startQueryTime != null and endQueryTime != null">
+            AND created_time BETWEEN #{startQueryTime} AND #{endQueryTime}
+        </if>
+        ORDER BY log.created_time desc
+    </select>
+</mapper>

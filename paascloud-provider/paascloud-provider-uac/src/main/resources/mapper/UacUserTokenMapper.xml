@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paascloud.provider.mapper.UacUserTokenMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.UacUserToken">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="pid" jdbcType="BIGINT" property="pid"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="os" property="os" jdbcType="VARCHAR"/>
+        <result column="browser" property="browser" jdbcType="VARCHAR"/>
+        <result column="login_ip" jdbcType="VARCHAR" property="loginIp"/>
+        <result column="login_location" jdbcType="VARCHAR" property="loginLocation"/>
+        <result column="access_token" jdbcType="VARCHAR" property="accessToken"/>
+        <result column="refresh_token" jdbcType="VARCHAR" property="refreshToken"/>
+        <result column="access_token_validity" jdbcType="INTEGER" property="accessTokenValidity"/>
+        <result column="refresh_token_validity" jdbcType="INTEGER" property="refreshTokenValidity"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="creator_id" jdbcType="BIGINT" property="creatorId"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="last_operator" jdbcType="VARCHAR" property="lastOperator"/>
+        <result column="last_operator_id" jdbcType="BIGINT" property="lastOperatorId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="group_id" property="groupId" jdbcType="BIGINT"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, version, pid, login_name, user_name, user_id, login_ip, login_location, access_token,
+        refresh_token, access_token_validity, refresh_token_validity, status, creator, creator_id,
+        created_time, last_operator, last_operator_id, update_time, os, browser, login_time, group_id, group_name
+    </sql>
+    <select id="selectTokenList" resultType="com.paascloud.provider.model.domain.UacUserToken">
+
+        SELECT
+        <include refid="Base_Column_List"/>,
+        (access_token_validity - TIMESTAMPDIFF(SECOND, created_time, NOW())) as expiresIn
+        from
+        pc_uac_user_token
+        where
+        1 = 1
+        <if test="status != null">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="status != null and status == 0">
+            and TIMESTAMPDIFF(SECOND, created_time, NOW()) &lt; access_token_validity
+        </if>
+        <if test="loginName != null and loginName != ''">
+            and login_name LIKE concat(#{loginName}, '%')
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name LIKE concat(#{userName}, '%')
+        </if>
+    </select>
+  <select id="listOffLineTokenId" resultType="java.lang.Long">
+    SELECT id FROM pc_uac_user_token WHERE TIMESTAMPDIFF(SECOND, created_time, NOW()) > access_token_validity AND status in (0,10);
+  </select>
+
+  <update id="batchUpdateTokenOffLine">
+    UPDATE pc_uac_user_token SET `status` = #{status}
+    WHERE id IN
+    <foreach collection="tokenIdList" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </update>
+</mapper>

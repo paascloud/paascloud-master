@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.OpcSmsSettingMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.OpcSmsSetting">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+        <result column="again_send_time" property="againSendTime" jdbcType="INTEGER"/>
+        <result column="invalid_time" property="invalidTime" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="type_desc" property="typeDesc" jdbcType="VARCHAR"/>
+        <result column="templet_code" property="templetCode" jdbcType="VARCHAR"/>
+        <result column="templet_content" property="templetContent" jdbcType="VARCHAR"/>
+        <result column="send_max_num" property="sendMaxNum" jdbcType="INTEGER"/>
+        <result column="ip_send_max_num" property="ipSendMaxNum" jdbcType="INTEGER"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+        <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="yn" property="yn" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>

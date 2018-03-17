@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.MdcAddressMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.MdcAddress" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="pid" property="pid" jdbcType="BIGINT" />
+        <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+        <result column="level" property="level" jdbcType="INTEGER" />
+        <result column="ad_code" property="adCode" jdbcType="VARCHAR" />
+        <result column="polyline" property="polyline" jdbcType="VARCHAR" />
+        <result column="center" property="center" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, pid, city_code, ad_code, name, level, polyline, center
+    </sql>
+    <sql id="Base_Where_Condition">
+        <where>
+            <if test="id != null" >
+                AND id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="pid != null" >
+                AND pid = #{pid,jdbcType=BIGINT}
+            </if>
+            <if test="cityCode != null and cityCode != ''" >
+                AND city_code = #{cityCode,jdbcType=VARCHAR}
+            </if>
+            <if test="adCode != null and adCode != ''" >
+                AND ad_code = #{adCode,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''" >
+                AND name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="level != null" >
+                AND level = #{level,jdbcType=BIT}
+            </if>
+            <if test="polyline != null and polyline != ''" >
+                AND polyline = #{polyline,jdbcType=VARCHAR}
+            </if>
+            <if test="center != null and center != ''" >
+                AND center = #{center,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    <select id="selectMdcAddress" resultMap="BaseResultMap" parameterType="com.paascloud.provider.model.domain.MdcAddress">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pc_mdc_address
+        <include refid="Base_Where_Condition"/>
+    </select>
+    <select id="selectAddressByPid" resultType="com.paascloud.provider.model.domain.MdcAddress">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM
+          pc_mdc_address
+        WHERE
+          parent_id = #{parentId}
+    </select>
+</mapper>

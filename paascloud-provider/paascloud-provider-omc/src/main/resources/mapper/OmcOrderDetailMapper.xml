@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.OmcOrderDetailMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.OmcOrderDetail" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="version" property="version" jdbcType="INTEGER" />
+        <result column="detail_no" property="detailNo" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+        <result column="product_id" property="productId" jdbcType="BIGINT" />
+        <result column="product_name" property="productName" jdbcType="VARCHAR" />
+        <result column="product_image" property="productImage" jdbcType="VARCHAR" />
+        <result column="current_unit_price" property="currentUnitPrice" jdbcType="DECIMAL" />
+        <result column="quantity" property="quantity" jdbcType="INTEGER" />
+        <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+        <result column="creator" property="creator" jdbcType="VARCHAR" />
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+        <result column="last_operator" property="lastOperator" jdbcType="VARCHAR" />
+        <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, version, detail_no, user_id, order_no, product_id, product_name,
+        product_image, current_unit_price, quantity, total_price, creator, creator_id, created_time,
+        last_operator, last_operator_id, update_time
+    </sql>
+
+    <select id="getListByOrderNoUserId" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from pc_omc_order_detail
+        where order_no = #{orderNo}
+        and user_id = #{userId}
+    </select>
+
+    <select id="getListByOrderNo" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from pc_omc_order_detail
+        where order_no = #{orderNo}
+    </select>
+
+
+
+    <insert id="batchInsertOrderDetail" parameterType="java.util.List">
+        insert into pc_omc_order_detail
+        (id, version, detail_no, user_id, order_no, product_id, product_name,
+            product_image, current_unit_price, quantity, total_price, creator, creator_id, created_time,
+            last_operator, last_operator_id, update_time)
+        values
+        <foreach collection="orderDetailList" index="index" item="item" separator=",">
+            (#{item.id,jdbcType=BIGINT},
+            #{item.version,jdbcType=INTEGER},
+            #{item.detailNo,jdbcType=VARCHAR},
+            #{item.userId,jdbcType=BIGINT},
+            #{item.orderNo,jdbcType=VARCHAR},
+            #{item.productId,jdbcType=BIGINT},
+            #{item.productName,jdbcType=VARCHAR},
+            #{item.productImage,jdbcType=VARCHAR},
+            #{item.currentUnitPrice,jdbcType=DECIMAL},
+            #{item.quantity,jdbcType=INTEGER},
+            #{item.totalPrice,jdbcType=DECIMAL},
+            #{item.creator,jdbcType=VARCHAR},
+            #{item.creatorId,jdbcType=BIGINT},
+            #{item.createdTime,jdbcType=TIMESTAMP},
+            #{item.lastOperator,jdbcType=VARCHAR},
+            #{item.lastOperatorId,jdbcType=BIGINT},
+            #{item.updateTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

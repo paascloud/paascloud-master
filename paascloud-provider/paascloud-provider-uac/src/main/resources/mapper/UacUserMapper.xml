@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paascloud.provider.mapper.UacUserMapper">
+    <resultMap id="BaseResultMap" type="uacUser">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="login_pwd" jdbcType="VARCHAR" property="loginPwd"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="user_code" jdbcType="VARCHAR" property="userCode"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="mobile_no" jdbcType="VARCHAR" property="mobileNo"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="user_source" jdbcType="VARCHAR" property="userSource"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="last_login_location" jdbcType="VARCHAR" property="lastLoginLocation"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="is_changed_pwd" jdbcType="SMALLINT" property="isChangedPwd"/>
+        <result column="pwd_error_count" jdbcType="SMALLINT" property="pwdErrorCount"/>
+        <result column="pwd_error_time" jdbcType="TIMESTAMP" property="pwdErrorTime"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="creator_id" jdbcType="BIGINT" property="creatorId"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="last_operator" jdbcType="VARCHAR" property="lastOperator"/>
+        <result column="last_operator_id" jdbcType="BIGINT" property="lastOperatorId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id ="Base_OrderBy_Condition">
+        <if test="orderBy != null and orderBy !=''">
+            ORDER BY ${orderBy}
+        </if>
+    </sql>
+    <sql id="Base_Column_List">
+        u.id as id,
+        u.version as version,
+        u.login_name as loginName,
+        u.login_pwd as loginPwd,
+        u.salt as salt,
+        u.user_code as userCode,
+        u.user_name as userName,
+        u.mobile_no as mobileNo,
+        u.email as email,
+        u.status as status,
+        u.user_source as userSource,
+        u.type as type,
+        u.last_login_ip as lastLoginIp,
+        u.remark as remark,
+        u.last_login_time as lastLoginTime,
+        u.is_changed_pwd as isChangedPwd,
+        u.pwd_error_count as pwdErrorCount,
+        u.pwd_error_time as pwdErrorTime,
+        u.creator as creator,
+        u.creator_id as creatorId,
+        u.created_time as createdTime,
+        u.last_operator as lastOperator,
+        u.last_operator_id as lastOperatorId,
+        u.update_time as updateTime,
+        u.last_login_location as lastLoginLocation
+    </sql>
+    <sql id="Base_Set_Condition" >
+        <set >
+            <if test="version != null" >
+                version = version + 1,
+            </if>
+            <if test="loginName != null" >
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPwd != null" >
+                login_pwd = #{loginPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null" >
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null" >
+                user_code = #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null" >
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobileNo != null" >
+                mobile_no = #{mobileNo,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="userSource != null" >
+                user_source = #{userSource,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginIp != null" >
+                last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginLocation != null" >
+                last_login_location = #{lastLoginLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginTime != null" >
+                last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isChangedPwd != null" >
+                is_changed_pwd = #{isChangedPwd,jdbcType=SMALLINT},
+            </if>
+            <if test="pwdErrorCount != null" >
+                pwd_error_count = #{pwdErrorCount,jdbcType=SMALLINT},
+            </if>
+            <if test="pwdErrorTime != null" >
+                pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null" >
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="creatorId != null" >
+                creator_id = #{creatorId,jdbcType=BIGINT},
+            </if>
+            <if test="createdTime != null" >
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastOperator != null" >
+                last_operator = #{lastOperator,jdbcType=VARCHAR},
+            </if>
+            <if test="lastOperatorId != null" >
+                last_operator_id = #{lastOperatorId,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+    </sql>
+    <sql id="Base_Where_Condition" >
+        <if test="id != null and id != ''" >
+            AND ${alias}.id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="version != null" >
+            AND ${alias}.version = #{version,jdbcType=INTEGER}
+        </if>
+        <if test="loginName != null and loginName != ''" >
+            AND ${alias}.login_name = #{loginName,jdbcType=VARCHAR}
+        </if>
+        <if test="loginPwd != null and loginPwd != ''" >
+            AND ${alias}.login_pwd = #{loginPwd,jdbcType=VARCHAR}
+        </if>
+        <if test="salt != null and salt != ''" >
+            AND ${alias}.salt = #{salt,jdbcType=VARCHAR}
+        </if>
+        <if test="userCode != null and userCode != ''" >
+            AND ${alias}.user_code = #{userCode,jdbcType=VARCHAR}
+        </if>
+        <if test="userName != null and userName != ''" >
+            AND ${alias}.user_name = #{userName,jdbcType=VARCHAR}
+        </if>
+        <if test="mobileNo != null and mobileNo != ''" >
+            AND ${alias}.mobile_no = #{mobileNo,jdbcType=VARCHAR}
+        </if>
+        <if test="email != null and email != ''" >
+            AND ${alias}.email = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''" >
+            AND ${alias}.status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="userSource != null and userSource != ''" >
+            AND ${alias}.user_source = #{userSource,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null and type != ''" >
+            AND ${alias}.type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="lastLoginIp != null and lastLoginIp != ''" >
+            AND ${alias}.last_login_ip = #{lastLoginIp,jdbcType=VARCHAR}
+        </if>
+        <if test="lastLoginLocation != null and lastLoginLocation != ''" >
+            AND ${alias}.last_login_location = #{lastLoginLocation,jdbcType=VARCHAR}
+        </if>
+        <if test="remark != null and remark != ''" >
+            AND ${alias}.remark = #{remark,jdbcType=VARCHAR}
+        </if>
+        <if test="lastLoginTime != null" >
+            AND ${alias}.last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="isChangedPwd != null" >
+            AND ${alias}.is_changed_pwd = #{isChangedPwd,jdbcType=SMALLINT}
+        </if>
+        <if test="pwdErrorCount != null" >
+            AND ${alias}.pwd_error_count = #{pwdErrorCount,jdbcType=SMALLINT}
+        </if>
+        <if test="pwdErrorTime != null" >
+            AND ${alias}.pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creator != null and creator != ''" >
+            AND ${alias}.creator = #{creator,jdbcType=VARCHAR}
+        </if>
+        <if test="creatorId != null and creatorId != ''" >
+            AND ${alias}.creator_id = #{creatorId,jdbcType=BIGINT}
+        </if>
+        <if test="createdTime != null" >
+            AND ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="lastOperator != null and lastOperator != ''" >
+            AND ${alias}.last_operator = #{lastOperator,jdbcType=VARCHAR}
+        </if>
+        <if test="lastOperatorId != null and lastOperatorId != ''" >
+            AND ${alias}.last_operator_id = #{lastOperatorId,jdbcType=BIGINT}
+        </if>
+        <if test="updateTime != null" >
+            AND ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+    </sql>
+    <update id="updateUacUser" parameterType="uacUser">
+        update pc_uac_user
+        <include refid="Base_Set_Condition"/>
+        where  id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findByLoginName" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        from
+          pc_uac_user u
+        WHERE
+          u.login_name=#{loginName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByMobileNo" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        from
+          pc_uac_user u
+        WHERE
+          u.mobile_no=#{mobileNo,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByLoginNameAndLoginPwd" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM
+            pc_uac_user u
+        WHERE
+          u.login_name = #{loginName,jdbcType=VARCHAR} AND u.login_pwd = #{loginPwd,jdbcType=VARCHAR}
+    </select>
+    <select id="selectUserList" parameterType="uacUser" resultType="uacUser">
+        SELECT
+        <include refid="Base_Column_List"/>, g.id as groupId, g.group_name as groupName
+        FROM
+          pc_uac_user u
+        LEFT JOIN pc_uac_group_user gu ON gu.user_id = u.id
+        LEFT JOIN pc_uac_group g ON g.id = gu.group_id
+        WHERE 1 = 1
+        <include refid="Base_Where_Condition">
+            <property name="alias" value="u"></property>
+        </include>
+        <include refid="Base_OrderBy_Condition">
+            <property name="alias" value="u"></property>
+        </include>
+    </select>
+    <select id="selectUserInfoByUserId" resultType="uacUser">
+        SELECT
+        <include refid="Base_Column_List"/>,
+        g.id as groupId,
+        g.group_name as groupName
+        FROM
+            pc_uac_user u
+            LEFT JOIN pc_uac_group_user gu on u.id = gu.user_id
+            LEFT JOIN pc_uac_group g on gu.group_id = g.id
+        WHERE u.id = #{userId}
+    </select>
+    <select id="selectAllNeedBindRole" parameterType="long" resultType="com.paascloud.provider.model.dto.user.BindRoleDto">
+        SELECT
+            r.id as roleId,
+            r.role_code as roleCode,
+            r.role_name as roleName,
+            (r.id = #{superManagerRoleId}) AS disabled
+        FROM pc_uac_role r
+    </select>
+  <select id="findUserInfoByLoginName" resultType="com.paascloud.provider.model.domain.UacUser">
+    SELECT
+    <include refid="Base_Column_List"/>,
+    g.id as groupId,
+    g.group_name as groupName
+    FROM
+    pc_uac_user u
+    LEFT JOIN pc_uac_group_user gu on u.id = gu.user_id
+    LEFT JOIN pc_uac_group g on gu.group_id = g.id
+    WHERE u.login_name = #{loginName}
+  </select>
+</mapper>

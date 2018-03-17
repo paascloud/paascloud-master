@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paascloud.provider.mapper.UacRoleUserMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.UacRoleUser">
+        <id column="role_id" jdbcType="BIGINT" property="roleId"/>
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        role_id, user_id
+    </sql>
+    <sql id="Base_Where_Condition">
+    </sql>
+    <sql id ="Base_Set_Condition">
+    </sql>
+
+    <delete id="deleteExcludeSuperMng" parameterType="map">
+        DELETE
+        FROM
+            pc_uac_role_user
+        WHERE
+            user_id IN (SELECT temp.user_id
+                        FROM (
+                                 SELECT ru.user_id
+                                 FROM
+                                     `pc_uac_role_user` ru
+                                     LEFT JOIN pc_uac_user u ON ru.user_id = u.id
+                                 WHERE
+                                     ru.role_id = #{currentRoleId}
+                                     AND ru.user_id NOT IN (
+                                         SELECT ru.user_id
+                                         FROM
+                                             `pc_uac_role_user` ru
+                                             LEFT JOIN pc_uac_user u ON ru.user_id = u.id
+                                         WHERE
+                                             ru.role_id = #{superRoleId}
+                                     )) temp
+            )
+    </delete>
+    <delete id="deleteByRoleId">
+        delete from pc_uac_role_user
+        where role_id=#{roleId}
+    </delete>
+    <delete id="deleteByRoleIdList">
+        delete from pc_uac_role_user
+        where role_id in
+        <foreach collection="roleIdList" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <select id="getByUserIdAndRoleId" resultMap="BaseResultMap">
+        SELECT role_id, user_id from pc_uac_role_user WHERE user_id = #{userId} and role_id = #{roleId}
+    </select>
+    <select id="listByUserId" resultMap="BaseResultMap">
+        SELECT role_id, user_id from pc_uac_role_user WHERE user_id = #{userId}
+    </select>
+    <select id="listByRoleId" resultMap="BaseResultMap">
+        SELECT role_id, user_id from pc_uac_role_user WHERE role_id = #{roleId}
+    </select>
+    <select id="listSuperUser" parameterType="long" resultType="java.lang.Long">
+        SELECT
+            ru.user_id
+        FROM
+            `pc_uac_role_user` ru
+            LEFT JOIN pc_uac_user u ON ru.user_id = u.id
+        WHERE
+            ru.role_id = #{roleId}
+    </select>
+    <select id="listByRoleIdList" resultType="uacRoleUser">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from pc_uac_role_user
+        where role_id in
+        <foreach collection="roleIds" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

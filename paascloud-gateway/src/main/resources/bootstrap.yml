@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    config:
+      uri: http://admin:admin@paascloud-discovery:8080/
+      label: master
+      profile: ${spring.profiles.active:dev}
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+        - VM.*

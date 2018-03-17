@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.TpcMqTopicMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.TpcMqTopic">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="topic_code" property="topicCode" jdbcType="VARCHAR"/>
+        <result column="topic_name" property="topicName" jdbcType="VARCHAR"/>
+        <result column="mq_type" property="mqType" jdbcType="INTEGER"/>
+        <result column="msg_type" property="msgType" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+        <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        ${alias}.id, ${alias}.version, ${alias}.producer_id, ${alias}.topic_code, ${alias}.topic_name, ${alias}.mq_type, ${alias}.msg_type, ${alias}.status, ${alias}.remarks,
+        ${alias}.creator, ${alias}.creator_id, ${alias}.created_time, ${alias}.last_operator, ${alias}.last_operator_id, ${alias}.update_time
+    </sql>
+
+    <sql id="Base_Tag_Column_List" >
+        ${alias}.id as tag_id, ${alias}.version as tag_version, ${alias}.topic_id, ${alias}.tag_code, ${alias}.tag_name,
+        ${alias}.status as tag_status, ${alias}.remark as tag_remark, ${alias}.creator as tag_creator, ${alias}.creator_id as tag_creator_id,
+        ${alias}.created_time as tag_created_time, ${alias}.last_operator as tag_last_operator, ${alias}.last_operator_id as tag_last_operator_id, ${alias}.update_time as tag_update_time
+    </sql>
+
+    <resultMap id="TpcMqTopicVoResultMap" extends="BaseResultMap" type="com.paascloud.provider.model.vo.TpcMqTopicVo">
+        <collection property="tagVoList" ofType="com.paascloud.provider.model.vo.TpcMqTagVo">
+            <result property="tagCode" column="tag_code"/>
+            <result property="tagName" column="tag_name"/>
+            <result property="status" column="tag_status"/>
+            <result property="lastOperator" column="tag_last_operator"/>
+            <result property="updateTime" column="tag_update_time"/>
+        </collection>
+    </resultMap>
+
+    <select id="listTpcMqTopicVoWithPage" resultMap="TpcMqTopicVoResultMap">
+        SELECT
+            <include refid="Base_Column_List">
+              <property name="alias" value="topic"></property>
+            </include>
+            ,
+            <include refid="Base_Tag_Column_List">
+                <property name="alias" value="tag"></property>
+            </include>
+        FROM
+          pc_tpc_mq_topic topic
+        LEFT JOIN
+          pc_tpc_mq_tag tag ON topic.id = tag.topic_id
+        WHERE 1 = 1
+        <if test="topicCode != null and topicCode !=''" >
+            AND topic.topic_code LIKE concat(#{topicCode}, '%')
+        </if>
+        <if test="topicName != null and topicName !=''" >
+            AND topic.topic_name LIKE concat(#{topicName}, '%')
+        </if>
+        <if test="status != null and status !=''" >
+            AND topic.status = #{status,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

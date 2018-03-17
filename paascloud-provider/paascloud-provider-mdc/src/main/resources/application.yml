@@ -1,0 +1,81 @@
+server:
+  port: ${paascloud.server.provider.mdc.port:8030}
+  tomcat:
+    uri-encoding: UTF-8
+    remote-ip-header: x-forwarded-for
+  use-forward-headers: true
+spring:
+  cache:
+    cache-names: mdc-cache
+  application:
+    name: @pom.artifactId@
+  profiles:
+    active: @profileActive@
+  boot:
+    admin:
+      username: ${security.user.name:admin}
+      password: ${security.user.password:admin}
+  redis:
+    host: ${spring.redis.host:paascloud-db-redis}
+    password: ${spring.redis.password:123456}
+    port: ${spring.redis.port:6379}
+    timeout: ${spring.redis.timeout:0}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_mdc?characterEncoding=utf8&useSSL=false
+    username: ${spring.datasource.username:root}
+    password: ${spring.datasource.password:123456}
+    filters: stat,wall
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 30
+      test-on-borrow: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      web-stat-filter:
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      stat-view-servlet:
+        allow:
+        login-username: admin
+        login-password: admin
+  zipkin:
+    base-url: http://paascloud-zipkin:8020
+  sleuth:
+    sampler:
+      percentage: 1.0
+info:
+  owner: paascloud.net@gmail.com
+  version: @project.version@
+paascloud:
+  enableSqlLogInterceptor: false
+  dingTalk:
+    webhookToken:
+      sendException: 7b0fcc73f3d2be1415c5d31e5b34100c689961454af15a61635749ba0d88adbb
+      jobListener: 7b0fcc73f3d2be1415c5d31e5b34100c689961454af15a61635749ba0d88adbb
+  token:
+    interceptor:
+      enable: true
+  zk:
+    zkAddressList: paascloud-provider-zk:2181
+  aliyun:
+    rocketMq:
+      enable: false
+      reliableMessageConsumer: false
+      reliableMessageProducer: true
+      namesrvAddr: paascloud-mq-rocket:9876
+      instanceName: paascloud-provider-mdc
+      consumerGroup: CID_MDC
+      producerGroup: PID_MDC
+  swagger:
+    title: @pom.artifactId@
+    description: @pom.description@
+  oauth2:
+    jwtSigningKey: paascloud
+    client:
+      id: ${security.oauth2.resource.id}
+      accessTokenUrl: ${security.oauth2.client.access-token-uri}
+      clientId: ${security.oauth2.client.clientId}
+      clientSecret: ${security.oauth2.client.clientSecret}
+      clientAuthenticationScheme: header
+      tokenStore: jwt

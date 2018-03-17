@@ -1,0 +1,79 @@
+server:
+  port: 8020
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: @pom.artifactId@
+  boot:
+    admin:
+      username: ${security.user.name:admin}
+      password: ${security.user.password:admin}
+  redis:
+    host: ${spring.redis.host:paascloud-db-redis}
+    password: ${spring.redis.password:123456}
+    port: ${spring.redis.port:6379}
+    timeout: ${spring.redis.timeout:0}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_zipkin?characterEncoding=utf8&useSSL=false
+    username: ${spring.datasource.username:root}
+    password: ${spring.datasource.password:123456}
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 30
+      test-on-borrow: true
+      stat-view-servlet:
+        allow:
+  rabbitmq:
+    host: paascloud-mq-rabbit
+    port: 5672
+    username: yangwensheng
+    password: 123456
+  sleuth:
+    enabled: false
+  zipkin:
+    locator:
+      discovery:
+        enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@paascloud-eureka:eureka:8761/eureka/
+    instance:
+      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+zipkin:
+  storage:
+    type: mysql
+management:
+  security:
+    enabled: false
+info:
+  owner: paascloud.net@gmail.com
+  version: @project.version@
+security:
+  oauth2:
+    client:
+      clientId: paascloud-client-zipkin
+      clientSecret: paascloudClientSecret
+      access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
+      user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
+    resource:
+      user-info-uri: http://paascloud-provider-uac:8000/user
+      prefer-token-info: false
+      jwt:
+        key-uri: http://paascloud-provider-uac:8000/oauth/token_key
+paascloud:
+  oauth2:
+    client:
+      id: ${security.oauth2.resource.id}
+      accessTokenUrl: ${security.oauth2.client.access-token-uri}
+      clientId: ${security.oauth2.client.clientId}
+      clientSecret: ${security.oauth2.client.clientSecret}
+      clientAuthenticationScheme: header
+      tokenStore: jwt
+logging:
+  level.root: info
+  path: logs/
+  file: ${spring.application.name}.log

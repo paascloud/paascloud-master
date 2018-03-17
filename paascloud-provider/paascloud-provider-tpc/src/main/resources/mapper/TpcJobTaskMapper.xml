@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.TpcJobTaskMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.TpcJobTask">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="version" property="version" jdbcType="INTEGER"/>
+    <result column="ref_no" property="refNo" jdbcType="VARCHAR"/>
+    <result column="task_type" property="taskType" jdbcType="VARCHAR"/>
+    <result column="task_exe_count" property="taskExeCount" jdbcType="INTEGER"/>
+    <result column="task_data" property="taskData" jdbcType="LONGVARCHAR"/>
+    <result column="dead" property="dead" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="exe_instance_ip" property="exeInstanceIp" jdbcType="VARCHAR"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="exe_time" property="exeTime" jdbcType="INTEGER"/>
+    <result column="yn" property="yn" jdbcType="INTEGER"/>
+  </resultMap>
+</mapper>

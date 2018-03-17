@@ -1,0 +1,115 @@
+server:
+  port: 8070
+  tomcat:
+    uri-encoding: UTF-8
+    remote-ip-header: x-forwarded-for
+  use-forward-headers: true
+spring:
+  application:
+    name: @pom.artifactId@
+  profiles:
+    active: @profileActive@
+  boot:
+    admin:
+      username: ${security.user.name:admin}
+      password: ${security.user.password:admin}
+  redis:
+    host: ${spring.redis.host:paascloud-db-redis}
+    password: ${spring.redis.password:123456}
+    port: ${spring.redis.port:6379}
+    timeout: ${spring.redis.timeout:0}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_opc?useUnicode=true&characterEncoding=UTF-8
+    username: ${spring.datasource.username:root}
+    password: ${spring.datasource.password:123456}
+    filters: stat,wall
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 30
+      test-on-borrow: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      web-stat-filter:
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      stat-view-servlet:
+        allow:
+        login-username: admin
+        login-password: admin
+  zipkin:
+    base-url: http://paascloud-zipkin:8020
+  sleuth:
+    sampler:
+      percentage: 1.0
+  mail:
+    host: smtp.sina.com
+    username: ${paascloud.mail.username}
+    password: ${paascloud.mail.password}
+    port: 465
+    protocol: smtp
+    test-connection: true
+    default-encoding: UTF-8
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+          starttls:
+            enable: true
+            required: true
+info:
+  owner: paascloud.net@gmail.com
+  version: @project.version@
+paascloud:
+  enableSqlLogInterceptor: false
+  token:
+    interceptor:
+      enable: true
+  zk:
+    zkAddressList: paascloud-provider-zk:2181
+  swagger:
+    title: @pom.artifactId@
+    description: @pom.description@
+  qiniu:
+    key:
+      accessKey: yourQiniuAccessKey
+      secretKey: yourQiniuSecretKey
+    oss:
+      privateHost:
+      publicHost:
+      fileMaxSize: 104857600
+  oauth2:
+    jwtSigningKey: paascloud
+    client:
+      id: ${security.oauth2.resource.id}
+      accessTokenUrl: ${security.oauth2.client.access-token-uri}
+      clientId: ${security.oauth2.client.clientId}
+      clientSecret: ${security.oauth2.client.clientSecret}
+      clientAuthenticationScheme: header
+      tokenStore: jwt
+  aliyun:
+    key:
+      accessKeyId: yourAliyunAccessKey
+      accessKeySecret: yourAliyunKeySecret
+    rocketMq:
+      enable: true
+      reliableMessageConsumer: true
+      reliableMessageProducer: false
+      namesrvAddr: paascloud-mq-rocket:9876
+      instanceName: paascloud-provider-opc
+      consumerGroup: CID_OPC
+      producerGroup: PID_OPC
+    sms:
+      signName: 快乐学习网
+      regionId: cn-beijing
+      endpoint:
+      endpointName: cn-beijing
+      product: Dysmsapi
+      domain: dysmsapi.aliyuncs.com

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paascloud.provider.mapper.UacGroupUserMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.UacGroupUser">
+        <result column="group_id" jdbcType="BIGINT" property="groupId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        gu.group_id,
+        gu.user_id
+    </sql>
+
+    <update id="updateByUserId" parameterType="uacGroupUser">
+        update
+            pc_uac_group_user
+        set
+            group_id=#{groupId}
+        where
+            user_id=#{userId}
+    </update>
+    <delete id="deleteExcludeSuperMng" parameterType="map">
+        DELETE
+        FROM
+            pc_uac_group_user
+        WHERE
+            user_id IN (
+                SELECT
+                    temp.user_id
+                FROM
+                    (
+                        SELECT
+                            gu.user_id
+                        FROM
+                            `pc_uac_group_user` gu
+                            LEFT JOIN pc_uac_user u ON gu.user_id = u.id
+                        WHERE
+                            gu.group_id = #{currentGroupId}
+                            AND gu.user_id NOT IN (
+                                SELECT
+                                    ru.user_id
+                                FROM
+                                    `pc_uac_role_user` ru
+                                    LEFT JOIN pc_uac_user u ON ru.user_id = u.id
+                                WHERE
+                                    ru.role_id = #{superManagerRoleId}
+                            )
+                    ) temp
+            )
+    </delete>
+    <select id="getByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pc_uac_group_user gu
+        WHERE gu.user_id = #{userId, jdbcType=BIGINT}
+    </select>
+    <select id="selectGroupListByUserId" resultType="uacGroup">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+            pc_uac_group g, pc_uac_user u , pc_uac_group_user gu
+        where
+            1=1
+            and g.id = gu.group_id
+            and u.id = gu.user_id
+            and u.id = #{userId,jdbcType=BIGINT}
+    </select>
+    <select id="listByGroupId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pc_uac_group_user gu
+        WHERE gu.group_id = #{groupId, jdbcType=BIGINT}
+    </select>
+</mapper>

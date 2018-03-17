@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.UacUserMenuMapper">
+    <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.UacUserMenu">
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="menu_id" property="menuId" jdbcType="VARCHAR"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>

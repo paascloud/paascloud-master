@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.MdcProductMapper">
+  <resultMap id="BaseResultMap" type="mdcProduct">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="version" property="version" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="subtitle" property="subtitle" jdbcType="VARCHAR"/>
+    <result column="category_id" property="categoryId" jdbcType="BIGINT"/>
+    <result column="main_image" property="mainImage" jdbcType="VARCHAR"/>
+    <result column="price" property="price" jdbcType="DECIMAL"/>
+    <result column="stock" property="stock" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="sub_images" property="subImages" jdbcType="LONGVARCHAR"/>
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR"/>
+    <result column="product_code" property="productCode" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id ="Base_OrderBy_Condition">
+    <if test="orderBy != null and orderBy !=''">
+      ORDER BY ${orderBy}
+    </if>
+  </sql>
+  <sql id="Base_Column_List">
+    id,
+    version,
+    product_code,
+    category_id,
+    name,
+    subtitle,
+    main_image,
+    price,
+    stock,
+    status,
+    creator,
+    creator_id,
+    created_time,
+    last_operator,
+    last_operator_id,
+    update_time
+  </sql>
+  <update id="updateProductStockById" parameterType="com.paascloud.provider.model.dto.ProductDto">
+    UPDATE
+      pc_mdc_product
+    SET stock = stock + #{changeStock}
+    WHERE id = #{id}
+  </update>
+  <select id="selectByNameAndCategoryIds" resultType="com.paascloud.provider.model.domain.MdcProduct">
+    SELECT
+    <include refid="Base_Column_List" />
+    from pc_mdc_product
+    where status = 1
+    <if test="productName != null and productName !=''">
+      and name like concat('%', #{productName}, '%')
+    </if>
+    <if test="categoryIdList != null">
+      and category_id in
+      <foreach item="item" index="index" open="(" separator="," close=")" collection="categoryIdList">
+        #{item}
+      </foreach>
+    </if>
+    <if test="orderBy != null and orderBy != ''">
+      order by ${orderBy}
+    </if>
+  </select>
+  <select id="queryProductListWithPage" resultType="com.paascloud.provider.model.vo.ProductVo">
+    SELECT
+    <include refid="Base_Column_List" />
+    from pc_mdc_product
+    where 1 = 1
+    <if test="name != null and name !=''">
+      and name like concat('%', #{name}, '%')
+    </if>
+    <if test="status != null">
+      and status = #{status}
+    </if>
+    <include refid="Base_OrderBy_Condition"></include>
+  </select>
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.TpcMqConsumerMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.TpcMqConsumer">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="application_name" property="applicationName" jdbcType="VARCHAR"/>
+    <result column="consumer_code" property="consumerCode" jdbcType="VARCHAR"/>
+    <result column="consumer_name" property="consumerName" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ${alias}.id, ${alias}.version, ${alias}.aplication_name, ${alias}.consumer_code, ${alias}.consumer_name, ${alias}.status, ${alias}.remark,
+    ${alias}.creator, ${alias}.creator_id, ${alias}.created_time, ${alias}.last_operator, ${alias}.last_operator_id, ${alias}.update_time
+  </sql>
+
+  <sql id="Base_Topic_Column_List">
+    ${alias}.version as topic_version,
+    ${alias}.producer_id,
+    ${alias}.topic_code,
+    ${alias}.topic_name,
+    ${alias}.mq_type,
+    ${alias}.msg_type,
+    ${alias}.status as topic_status,
+    ${alias}.remarks as topic_remarks,
+    ${alias}.creator as topic_creator,
+    ${alias}.creator_id as topic_created_time,
+    ${alias}.created_time as topic_created_time,
+    ${alias}.last_operator as topic_last_operator,
+    ${alias}.last_operator_id as topic_last_operator_id,
+    ${alias}.update_time as topic_update_time
+  </sql>
+
+  <sql id="Base_Tag_Column_List" >
+    ${alias}.id as tag_id, ${alias}.version as tag_version, ${alias}.topic_id, ${alias}.tag_code, ${alias}.tag_name,
+    ${alias}.status as tag_status, ${alias}.remark as tag_remark, ${alias}.creator as tag_creator, ${alias}.creator_id as tag_creator_id,
+    ${alias}.created_time as tag_created_time, ${alias}.last_operator as tag_last_operator, ${alias}.last_operator_id as tag_last_operator_id, ${alias}.update_time as tag_update_time
+  </sql>
+  <delete id="deleteSubscribeTagByTagId">
+    DELETE FROM pc_tpc_mq_subscribe_tag WHERE tag_id = #{tagId}
+  </delete>
+  <delete id="deleteSubscribeByConsumerId">
+    DELETE FROM pc_tpc_mq_subscribe WHERE consumer_id = #{consumerId}
+  </delete>
+  <delete id="deleteSubscribeTagBySubscribeIdList">
+    DELETE FROM pc_tpc_mq_subscribe_tag WHERE subscribe_id IN
+    <foreach collection="subscribeIdList" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <resultMap id="TpcMqConsumerVoResultMap" extends="BaseResultMap" type="com.paascloud.provider.model.vo.TpcMqConsumerVo">
+    <collection property="mqTopicVoList" ofType="com.paascloud.provider.model.vo.TpcMqTopicVo">
+      <result property="topicCode" column="topic_code"/>
+      <result property="topicName" column="topic_name"/>
+      <result property="status" column="topic_status"/>
+      <result property="lastOperator" column="topic_last_operator"/>
+      <result property="updateTime" column="topic_update_time"/>
+    </collection>
+  </resultMap>
+  <select id="listTpcMqConsumerVoWithPage" resultMap="TpcMqConsumerVoResultMap">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="consumer"/>
+    </include>
+    ,
+    <include refid="Base_Topic_Column_List">
+      <property name="alias" value="topic"/>
+    </include>
+    from pc_tpc_mq_consumer consumer
+    LEFT JOIN pc_tpc_mq_subscribe subscribe ON consumer.id = subscribe.consumer_id
+    LEFT JOIN pc_tpc_mq_topic topic on topic.id = subscribe.topic_id
+    WHERE 1 = 1
+    <if test="consumerCode != null and consumerCode !=''">
+      AND consumer.consumer_code LIKE concat(#{consumerCode}, '%')
+    </if>
+    <if test="consumerName != null and consumerName !=''">
+      AND consumer.consumer_name LIKE concat(#{consumerName}, '%')
+    </if>
+    <if test="status != null and status !=''">
+      AND consumer.status = #{status,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <resultMap id="TpcMqSubscribeVoResultMap" extends="BaseResultMap" type="com.paascloud.provider.model.vo.TpcMqSubscribeVo">
+    <result property="topicCode" column="topic_code"/>
+    <result property="topicName" column="topic_name"/>
+    <result property="id" column="subscribeId"/>
+  </resultMap>
+
+  <select id="listTpcMqSubscribeVoWithPage" resultMap="TpcMqSubscribeVoResultMap">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="consumer"/>
+    </include>
+    ,
+    topic.topic_code,
+    topic.topic_name,
+    subscribe.id as subscribeId
+    from
+    pc_tpc_mq_subscribe subscribe
+    LEFT JOIN pc_tpc_mq_consumer consumer ON subscribe.consumer_id = consumer.id
+    LEFT JOIN pc_tpc_mq_topic topic on topic.id = subscribe.topic_id
+    WHERE 1 = 1
+    <if test="consumerCode != null and consumerCode !=''">
+      AND consumer.consumer_code LIKE concat(#{consumerCode}, '%')
+    </if>
+    <if test="consumerName != null and consumerName !=''">
+      AND consumer.consumer_name LIKE concat(#{consumerName}, '%')
+    </if>
+    <if test="status != null and status !=''">
+      AND consumer.status = #{status,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="listSubscribeIdByConsumerId" resultType="java.lang.Long">
+    select id FROM pc_tpc_mq_subscribe WHERE consumer_id = #{consumerId}
+  </select>
+
+  <resultMap id="TpcMqSubscribeVoResultMapN" type="com.paascloud.provider.model.vo.TpcMqSubscribeVo">
+    <id property="id" column="subscribeId"/>
+    <collection property="tagVoList" ofType="com.paascloud.provider.model.vo.TpcMqTagVo">
+      <result property="tagCode" column="tag_code"/>
+      <result property="tagName" column="tag_name"/>
+      <result property="status" column="tag_status"/>
+      <result property="lastOperator" column="tag_last_operator"/>
+      <result property="updateTime" column="tag_update_time"/>
+    </collection>
+  </resultMap>
+
+  <select id="listSubscribeVo" resultMap="TpcMqSubscribeVoResultMapN">
+    SELECT
+    st.subscribe_id as subscribeId
+    ,
+    <include refid="Base_Tag_Column_List">
+      <property name="alias" value="tag"/>
+    </include>
+    from pc_tpc_mq_subscribe_tag st
+    LEFT JOIN pc_tpc_mq_tag tag on tag.id = st.tag_id
+    WHERE st.subscribe_id IN
+    <foreach collection="subscribeIdList" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+  <select id="listConsumerGroupByTopic" resultType="java.lang.String">
+    SELECT consumer_code from pc_tpc_mq_subscribe WHERE topic_code = #{topic}
+  </select>
+  <select id="getByCid" resultType="com.paascloud.provider.model.domain.TpcMqConsumer">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="consumer"/>
+    </include>
+    from pc_tpc_mq_consumer consumer where consumer.consumer_code = #{cid}
+  </select>
+</mapper>

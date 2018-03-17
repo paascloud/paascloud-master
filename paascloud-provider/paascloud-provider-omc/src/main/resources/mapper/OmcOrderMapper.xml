@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.OmcOrderMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.OmcOrder">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="version" property="version" jdbcType="INTEGER"/>
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+    <result column="user_id" property="userId" jdbcType="BIGINT"/>
+    <result column="shipping_id" property="shippingId" jdbcType="BIGINT"/>
+    <result column="payment" property="payment" jdbcType="DECIMAL"/>
+    <result column="payment_type" property="paymentType" jdbcType="INTEGER"/>
+    <result column="postage" property="postage" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="payment_time" property="paymentTime" jdbcType="TIMESTAMP"/>
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP"/>
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR"/>
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    ${alias}.id,
+    ${alias}.version,
+    ${alias}.order_no,
+    ${alias}.user_id,
+    ${alias}.shipping_id,
+    ${alias}.payment,
+    ${alias}.payment_type,
+    ${alias}.postage,
+    ${alias}.status,
+    ${alias}.payment_time,
+    ${alias}.send_time,
+    ${alias}.end_time,
+    ${alias}.close_time,
+    ${alias}.creator,
+    ${alias}.creator_id,
+    ${alias}.created_time,
+    ${alias}.last_operator,
+    ${alias}.last_operator_id,
+    ${alias}.update_time
+  </sql>
+
+  <select id="selectByUserIdAndOrderNo" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="oder"/>
+    </include>
+    from pc_omc_order oder
+    where oder.order_no = #{orderNo}
+    and oder.user_id = #{userId}
+  </select>
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="string">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="oder"/>
+    </include>
+    FROM pc_omc_order oder
+    where oder.order_no = #{orderNo}
+  </select>
+
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="long">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="oder"/>
+    </include>
+    from pc_omc_order oder
+    where oder.user_id = #{userId}
+    order by update_time desc
+  </select>
+
+
+  <select id="selectAllOrder" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="oder"/>
+    </include>
+    from pc_omc_order oder
+    ORDER BY update_time desc
+  </select>
+  <select id="queryOrderListWithPage" resultType="com.paascloud.provider.model.vo.OrderDocVo">
+    SELECT
+    <include refid="Base_Column_List">
+      <property name="alias" value="oder"/>
+    </include>
+    ,shipping.receiver_name
+    from pc_omc_order oder
+    LEFT JOIN pc_omc_shipping shipping ON oder.shipping_id = shipping.id
+    where 1 = 1
+    <if test="status != null and status != ''">
+      and oder.status = #{status}
+    </if>
+    <if test="orderNo != null and orderNo != ''">
+      and oder.order_no = #{orderNo}
+    </if>
+    ORDER BY update_time desc
+  </select>
+</mapper>

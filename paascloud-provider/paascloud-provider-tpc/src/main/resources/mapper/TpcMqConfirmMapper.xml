@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paascloud.provider.mapper.TpcMqConfirmMapper">
+  <resultMap id="BaseResultMap" type="com.paascloud.provider.model.domain.TpcMqConfirm">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="version" property="version" jdbcType="INTEGER"/>
+    <result column="message_id" property="messageId" jdbcType="BIGINT"/>
+    <result column="message_key" property="messageKey" jdbcType="VARCHAR"/>
+    <result column="consumer_code" property="consumerCode" jdbcType="VARCHAR"/>
+    <result column="consume_count" property="consumeCount" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <insert id="batchCreateMqConfirm">
+    insert into pc_tpc_mq_confirm
+    (
+    id,
+    message_id,
+    message_key,
+    consumer_code)
+    VALUES
+    <foreach collection="tpcMqConfirmList" item="item" index="index" separator=",">
+      (
+      #{item.id,jdbcType=BIGINT},
+      #{item.messageId,jdbcType=BIGINT},
+      #{item.messageKey,jdbcType=VARCHAR},
+      #{item.consumerCode,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  <update id="confirmReceiveMessage">
+    UPDATE pc_tpc_mq_confirm
+    SET status = 20, consume_count = consume_count + 1
+    WHERE id = #{cid} AND status = 10
+  </update>
+  <update id="confirmConsumedMessage">
+    UPDATE pc_tpc_mq_confirm
+    SET status = 30
+    WHERE id = #{cid} AND status in (10, 20)
+  </update>
+  <select id="getIdMqConfirm" resultType="java.lang.Long">
+    SELECT id
+    FROM pc_tpc_mq_confirm
+    WHERE consumer_code = #{cid} AND message_key = #{messageKey}
+  </select>
+  <select id="selectUnConsumedCount" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM pc_tpc_mq_confirm
+    WHERE status in (10, 20) AND message_key = #{messageKey}
+  </select>
+</mapper>
