@@ -1,5 +1,6 @@
 package com.paascloud.security.core;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +13,8 @@ import java.util.Collection;
  */
 public class SecurityUser implements UserDetails {
 	private static final long serialVersionUID = 4872628781561412463L;
+
+	private static final String ENABLE = "ENABLE";
 
 	private Collection<GrantedAuthority> authorities;
 
@@ -38,13 +41,14 @@ public class SecurityUser implements UserDetails {
 		this.setGroupName(groupName);
 	}
 
-	public SecurityUser(Long userId, String loginName, String loginPwd, String nickName, Long groupId, String groupName, Collection<GrantedAuthority> grantedAuthorities) {
+	public SecurityUser(Long userId, String loginName, String loginPwd, String nickName, Long groupId, String groupName, String status, Collection<GrantedAuthority> grantedAuthorities) {
 		this.setUserId(userId);
 		this.setLoginName(loginName);
 		this.setLoginPwd(loginPwd);
 		this.setNickName(nickName);
 		this.setGroupId(groupId);
 		this.setGroupName(groupName);
+		this.setStatus(status);
 		this.authorities = grantedAuthorities;
 	}
 
@@ -80,7 +84,7 @@ public class SecurityUser implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return StringUtils.equals(this.status, ENABLE);
 	}
 
 	public Long getUserId() {

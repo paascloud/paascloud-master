@@ -65,6 +65,9 @@ public class UacMenuServiceImpl extends BaseService<UacMenu> implements UacMenuS
 		} else {
 			// 1.2查询该用户下所有的菜单列表
 			menuVoList = uacMenuMapper.findMenuVoListByUserId(userId);
+			if (PublicUtil.isEmpty(menuVoList)) {
+				return null;
+			}
 			Set<Long> ids = Sets.newHashSet();
 			for (final MenuVo menuVo : menuVoList) {
 				ids.add(menuVo.getId());
