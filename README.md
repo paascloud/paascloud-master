@@ -112,6 +112,11 @@
 Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
 ```
 
+### [QQ群](//shang.qq.com/wpa/qunwpa?idkey=d09a293bcef98e6b5348dfbb3f4587eb80f81bbef3449b250921582cc3c7b3df)
+ 
+ ![这里写图片描述](http://img.paascloud.net/paascloud/doc/paascloud-qq-qun.png)
+
+
 ## 配套项目
 
 ```
