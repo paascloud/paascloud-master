@@ -133,7 +133,7 @@ Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
 ### 传送门
 - 博客入口： http://blog.paascloud.net
 - 后端入口： http://admin.paascloud.net
-- 模拟商城: http://mall.paascloud.ent
+- 模拟商城: http://mall.paascloud.net
 - 文档手册: http://document.paascloud.net
 - github: https://github.com/paascloud
 
