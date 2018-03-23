@@ -61,8 +61,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.rocketmq</groupId>
-      <artifactId>rocketmq-common</artifactId>
-      <version>4.2.0-incubating-SNAPSHOT</version>
+      <artifactId>rocketmq-client</artifactId>
     </dependency>
   </dependencies>
   <build>
