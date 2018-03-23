@@ -51,8 +51,8 @@ paascloud:
   enableSqlLogInterceptor: false
   dingTalk:
     webhookToken:
-      sendException: 7b0fcc73f3d2be1415c5d31e5b34100c689961454af15a61635749ba0d88adbb
-      jobListener: 7b0fcc73f3d2be1415c5d31e5b34100c689961454af15a61635749ba0d88adbb
+      sendException: 7b0fcc73f3d2be1415c5d31e5b34100c689961454af15a61635749ba0d8*****
+      jobListener: 7b0fcc73f3d2be1415c5d31e5b34100c689961454af15a61635749ba0d8*****
   token:
     interceptor:
       enable: true

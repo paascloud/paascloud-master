@@ -28,10 +28,6 @@
       <artifactId>paascloud-common-base</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.liuzm.paascloud.common</groupId>
       <artifactId>paascloud-security-feign</artifactId>
       <version>1.0-SNAPSHOT</version>
