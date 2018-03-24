@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -115,6 +116,7 @@ public class MqMessageServiceImpl implements MqMessageService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void confirmReceiveMessage(String cid, MqMessageData messageData) {
 		final String messageKey = messageData.getMessageKey();
 		log.info("confirmReceiveMessage - 消费者={}, 确认收到key={}的消息", cid, messageKey);
@@ -146,6 +148,7 @@ public class MqMessageServiceImpl implements MqMessageService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteMqMessage(final int shardingTotalCount, final int shardingItem, final String tags) {
 		// 分页参数每页5000条
 		int pageSize = 1000;
@@ -184,6 +187,7 @@ public class MqMessageServiceImpl implements MqMessageService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void saveWaitConfirmMessage(final MqMessageData mqMessageData) {
 		this.saveMqProducerMessage(mqMessageData);
 		// 发送预发送状态的消息给消息中心

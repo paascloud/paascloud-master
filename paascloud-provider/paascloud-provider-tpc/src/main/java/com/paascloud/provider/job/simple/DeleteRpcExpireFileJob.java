@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.Resource;
 
 /**
- * 定时清理所有生产者发送成功的消息数据.
+ * 定时清理无效OSS文件.
  *
  * @author paascloud.net @gmail.com
  */

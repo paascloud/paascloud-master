@@ -73,12 +73,4 @@ public class MqProducerBeanFactory {
 	public static void rmPid(String pid) {
 		PRODUCER_STATUS_MAP.remove(pid);
 	}
-
-	public static ConcurrentHashMap<String, String> getConsumerStatusMap() {
-		return CONSUMER_STATUS_MAP;
-	}
-
-	public static ConcurrentHashMap<String, String> getProducerStatusMap() {
-		return PRODUCER_STATUS_MAP;
-	}
 }

@@ -48,7 +48,7 @@ public class MqBeanInitRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		CoordinatorRegistryCenter coordinatorRegistryCenter = RegistryCenterFactory.createCoordinatorRegistryCenter(paascloudProperties.getZk());
 		List<String> childrenKeys = coordinatorRegistryCenter.getChildrenKeys(GlobalConstant.ZK_REGISTRY_PRODUCER_ROOT_PATH);
-		initMqListener(coordinatorRegistryCenter);
+		this.initMqListener(coordinatorRegistryCenter);
 		for (final String childrenKey : childrenKeys) {
 			int count = coordinatorRegistryCenter.getNumChildren(GlobalConstant.ZK_REGISTRY_PRODUCER_ROOT_PATH + GlobalConstant.Symbol.SLASH + childrenKey);
 			if (count == 0) {
