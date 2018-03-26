@@ -5,7 +5,7 @@
   <parent>
     <artifactId>paascloud-master</artifactId>
     <groupId>com.liuzm.paascloud</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
   <groupId>com.liuzm.paascloud.provider.api</groupId>
   <modelVersion>4.0.0</modelVersion>
@@ -30,7 +30,7 @@
     <dependency>
       <groupId>com.liuzm.paascloud.common</groupId>
       <artifactId>paascloud-security-feign</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
   </dependencies>
 

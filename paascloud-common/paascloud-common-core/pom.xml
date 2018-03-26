@@ -5,11 +5,11 @@
     <parent>
         <groupId>com.liuzm.paascloud.common</groupId>
         <artifactId>paascloud-common</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>paascloud-common-core</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>com.liuzm.paascloud.common</groupId>
             <artifactId>paascloud-common-config</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

@@ -3,10 +3,10 @@ spring:
     config:
       server:
         git:
-          uri: https://git.oschina.net/passcloud/paascloud-config-repo
+          uri: https://github.com/paascloud/paascloud-config-repo
           username:
           password:
-          search-paths: /* # '{application}'
+          search-paths: /*
     inetutils:
       ignoredInterfaces:
         - docker0
@@ -16,6 +16,6 @@ spring:
 encrypt:
   key-store:
     location: classpath:/server.jks
-    password: http://paascloud.net
+    password: paascloud-storepass
     alias: paascloud-key-store
-    secret: paascloud
+    secret: paascloud-keypass

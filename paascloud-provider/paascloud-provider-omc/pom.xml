@@ -5,7 +5,7 @@
 
 	<artifactId>paascloud-provider-omc</artifactId>
 	<packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
 	<name>paascloud-provider-omc</name>
 	<description>订单管理中心 - Order management center</description>
@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>com.liuzm.paascloud.provider</groupId>
 		<artifactId>paascloud-provider</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 	</parent>
 
 	<properties>
