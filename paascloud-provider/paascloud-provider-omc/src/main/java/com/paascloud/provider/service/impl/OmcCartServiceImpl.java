@@ -49,7 +49,7 @@ public class OmcCartServiceImpl extends BaseService<OmcCart> implements OmcCartS
 
 	@Override
 	public CartVo getCarVo(Long userId) {
-		logger.info("getCarVo - 获取购物车列表 userId={}", userId);
+		logger.info("getCarVo -  获取购物车列表 -- userId={}", userId);
 		CartVo cartVo = new CartVo();
 		List<OmcCart> cartList = this.selectCartListByUserId(userId);
 		List<CartProductVo> cartProductVoList = Lists.newArrayList();
