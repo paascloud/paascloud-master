@@ -3,10 +3,10 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/paascloud/paascloud-config-repo
+          uri: https://github.com/home45006/paascloud-config-repo
           username:
           password:
-          search-paths: /*
+          search-paths: /**
     inetutils:
       ignoredInterfaces:
         - docker0
