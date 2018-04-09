@@ -24,7 +24,7 @@ import java.util.List;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/cart", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/cart", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "WEB - MallCartController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class MallCartController extends BaseController {
 

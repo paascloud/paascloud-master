@@ -9,7 +9,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   cloud:
     config:
-      uri: http://admin:admin@paascloud-discovery:8080/
+      uri: http://paascloud-discovery:8080/
       username: admin
       password: admin
       profile: ${spring.profiles.active}

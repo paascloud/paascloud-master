@@ -27,7 +27,7 @@ import javax.annotation.Resource;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/menu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/menu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacMenuCommonController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacMenuCommonController extends BaseController {
 

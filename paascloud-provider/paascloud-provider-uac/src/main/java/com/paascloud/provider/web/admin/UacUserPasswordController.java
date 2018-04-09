@@ -27,7 +27,7 @@ import javax.annotation.Resource;
  * @author paascloud.net@gmail.com
  */
 @RestController
-@RequestMapping(value = "/user", produces = {"application/json;charset=UTF-8"})
+@RequestMapping(value = "/uac/user", produces = {"application/json;charset=UTF-8"})
 @Api(value = "Web - UacUserPasswordController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacUserPasswordController extends BaseController {
 	@Resource

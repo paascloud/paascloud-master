@@ -29,7 +29,7 @@ import java.util.List;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/action", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/action", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacActionMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacActionMainController extends BaseController {
 

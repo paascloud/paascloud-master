@@ -28,7 +28,7 @@ import java.util.List;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/menu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/menu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacMenuMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacMenuMainController extends BaseController {
 

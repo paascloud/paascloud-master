@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/email", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/email", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "WEB - EmailController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class EmailController extends BaseController {
 

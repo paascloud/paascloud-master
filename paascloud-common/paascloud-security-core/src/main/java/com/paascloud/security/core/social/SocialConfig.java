@@ -49,9 +49,8 @@ public class SocialConfig extends SocialConfigurerAdapter {
 	 */
 	@Override
 	public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-		JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource,
-				connectionFactoryLocator, Encryptors.noOpText());
-		repository.setTablePrefix("pc_");
+		JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+		repository.setTablePrefix("pc_uac_");
 		if (connectionSignUp != null) {
 			repository.setConnectionSignUp(connectionSignUp);
 		}

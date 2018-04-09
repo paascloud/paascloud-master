@@ -32,7 +32,7 @@ import java.util.List;
  * @author paascloud.net@gmail.com
  */
 @RestController
-@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacUserCommonController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacUserCommonController extends BaseController {
 

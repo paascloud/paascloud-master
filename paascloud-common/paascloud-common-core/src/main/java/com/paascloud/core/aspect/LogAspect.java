@@ -121,7 +121,7 @@ public class LogAspect {
 
 			getControllerMethodDescription(relog, operationLogDto, result, joinPoint);
 			threadLocal.remove();
-			taskExecutor.execute(() -> this.restTemplate.postForObject("http://paascloud-provider-uac/auth/saveLog", operationLogDto, Integer.class));
+			taskExecutor.execute(() -> this.restTemplate.postForObject("http://paascloud-provider-uac/uac/auth/saveLog", operationLogDto, Integer.class));
 		} catch (Exception ex) {
 			log.error("获取注解类出现异常={}", ex.getMessage(), ex);
 		}

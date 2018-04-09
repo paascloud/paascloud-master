@@ -49,8 +49,7 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 	 * @param principal   the principal
 	 * @param authorities the authorities
 	 */
-	public OpenIdAuthenticationToken(Object principal,
-	                                 Collection<? extends GrantedAuthority> authorities) {
+	public OpenIdAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		this.principal = principal;
 		// must use super, as we override

@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/token", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/token", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacTokenMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacTokenMainController extends BaseController {
 

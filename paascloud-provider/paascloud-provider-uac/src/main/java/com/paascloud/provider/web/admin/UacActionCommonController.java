@@ -26,7 +26,7 @@ import javax.annotation.Resource;
  * @author paascloud.net@gmail.com
  */
 @RestController
-@RequestMapping(value = "/action", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/action", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacActionCommonController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacActionCommonController extends BaseController {
 

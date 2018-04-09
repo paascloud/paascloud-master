@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @author paascloud.net@gmail.com
  */
 @RestController
-@RequestMapping(value = "/log", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/uac/log", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacLogMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacLogMainController extends BaseController {
 	@Resource

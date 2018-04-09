@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -30,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/auth")
+@RequestMapping(value = "/uac/auth")
 @Api(value = "Web-AuthRestController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class AuthRestController extends BaseController {
 	@Resource
@@ -203,5 +204,10 @@ public class AuthRestController extends BaseController {
 	public Integer saveLog(@RequestBody OperationLogDto operationLogDto) {
 		logger.info("saveLog - 保存操作日志. operationLogDto={}", operationLogDto);
 		return uacLogService.saveOperationLog(operationLogDto);
+	}
+
+	@PostMapping(value = "/callback/qq")
+	public void callbackQQ(HttpServletRequest request) {
+		logger.info("callback - callback qq. request={}", request);
 	}
 }

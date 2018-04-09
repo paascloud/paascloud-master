@@ -87,13 +87,23 @@ paascloud:
       clientSecret: ${security.oauth2.client.clientSecret}
       clientAuthenticationScheme: header
   security:
+    social:
+      filterProcessesUrl: /uac/auth/callback
+      qq:
+        app-id: 101431061
+        app-secret: 0154c848f45fc705412462d4f99a592c
+        providerId: qq
+      weixin:
+        app-id: wxd99431bbff8305a0
+        app-secret: 60f78681d063590a469f1b297feff3c4
+        providerId: weixin
     code:
       image:
         expireIn: 180
-        url: /auth/register,/auth/submitResetPwdEmail,/auth/code/sms
+        url: /uac/auth/register,/uac/auth/submitResetPwdEmail,/uac/auth/code/sms
       sms:
         expireIn: 600
-        url: /auth/submitResetPwdPhone
+        url: /uac/auth/submitResetPwdPhone
         mobileMaxSendCount: 1
         ipMaxSendCount: 2
         totalMaxSendCount: 3

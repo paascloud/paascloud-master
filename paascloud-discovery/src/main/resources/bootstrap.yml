@@ -3,7 +3,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/paascloud/paascloud-config-repo
+          uri: https://github.com/paascloud/paascloud-config-repo.git
           username:
           password:
           search-paths: /*
