@@ -7,18 +7,18 @@ spring:
     name: @pom.artifactId@
   boot:
     admin:
-      username: ${security.user.name:admin}
-      password: ${security.user.password:admin}
+      username: admin
+      password: admin
   redis:
-    host: ${spring.redis.host:paascloud-db-redis}
-    password: ${spring.redis.password:123456}
-    port: ${spring.redis.port:6379}
-    timeout: ${spring.redis.timeout:0}
+    host: paascloud-db-redis
+    password: 123456
+    port: 6379
+    timeout: 0
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_zipkin?characterEncoding=utf8&useSSL=false
-    username: ${spring.datasource.username:root}
-    password: ${spring.datasource.password:123456}
+    username: root
+    password: 123456
     druid:
       initial-size: 10
       min-idle: 10
@@ -41,8 +41,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://root:root@paascloud-eureka:eureka:8761/eureka/
-    instance:
-      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
 zipkin:
   storage:
     type: mysql

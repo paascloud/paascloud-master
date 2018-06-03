@@ -1,5 +1,5 @@
 server:
-  port: ${paascloud.server.provider.uac.port:8000}
+  port: 8000
   tomcat:
     uri-encoding: UTF-8
     remote-ip-header: x-forwarded-for
@@ -11,18 +11,18 @@ spring:
     active: @profileActive@
   boot:
     admin:
-      username: ${security.user.name:admin}
-      password: ${security.user.password:admin}
+      username: admin
+      password: admin
   redis:
-    host: ${spring.redis.host:paascloud-db-redis}
-    password: ${spring.redis.password:123456}
-    port: ${spring.redis.port:6379}
-    timeout: ${spring.redis.timeout:0}
+    host: paascloud-db-redis
+    password: 123456
+    port: 6379
+    timeout: 0
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_uac?characterEncoding=utf8&useSSL=false
-    username: ${spring.datasource.username:root}
-    password: ${spring.datasource.password:123456}
+    username: root
+    password: 123456
     filters: stat,wall
     druid:
       initial-size: 10
@@ -41,7 +41,12 @@ spring:
     base-url: http://paascloud-zipkin:8020
   sleuth:
     sampler:
-      percentage: 1.0
+      percentage: 0.3
+liquibase:
+  change-log: classpath:liquibase/index.xml
+  user: ${spring.datasource.username}
+  password: ${spring.datasource.password}
+  url: ${spring.datasource.url}
 info:
   owner: paascloud.net@gmail.com
   version: @project.version@
