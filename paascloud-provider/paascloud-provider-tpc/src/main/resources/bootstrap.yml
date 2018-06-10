@@ -24,7 +24,7 @@ logging:
     com.paascloud.provider: TRACE
 mybatis:
   type-aliases-package: com.paascloud.provider.model.domain
-  mapper-locations: classpath*:mapper/*.xml
+  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
 mapper:
