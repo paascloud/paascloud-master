@@ -93,7 +93,7 @@ paascloud:
       clientAuthenticationScheme: header
   security:
     social:
-      filterProcessesUrl: /uac/auth/callback
+      filterProcessesUrl: /auth/callback
       qq:
         app-id: 101431061
         app-secret: 0154c848f45fc705412462d4f99a592c
@@ -105,10 +105,10 @@ paascloud:
     code:
       image:
         expireIn: 180
-        url: /uac/auth/register,/uac/auth/submitResetPwdEmail,/uac/auth/code/sms
+        url: /auth/register,/auth/submitResetPwdEmail,/auth/code/sms
       sms:
         expireIn: 600
-        url: /uac/auth/submitResetPwdPhone
+        url: /auth/submitResetPwdPhone
         mobileMaxSendCount: 1
         ipMaxSendCount: 2
         totalMaxSendCount: 3

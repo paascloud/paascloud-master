@@ -23,7 +23,7 @@ import java.util.List;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/uac/auth", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "WEB - MallAuthRestController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class MallAuthRestController extends BaseController {
 

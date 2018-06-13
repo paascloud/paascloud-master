@@ -34,7 +34,7 @@ import java.util.List;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/uac/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacRoleMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacRoleMainController extends BaseController {
 

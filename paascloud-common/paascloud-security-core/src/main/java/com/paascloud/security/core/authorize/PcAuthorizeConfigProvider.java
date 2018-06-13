@@ -28,8 +28,8 @@ public class PcAuthorizeConfigProvider implements AuthorizeConfigProvider {
 				SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_MOBILE,
 				SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_OPENID,
 				SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL,
-				SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*", "/uac/pay/alipayCallback",
-				"/druid/**", "/uac/auth/**", "/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs").permitAll();
+				SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*", "/pay/alipayCallback",
+				"/druid/**", "/auth/**", "/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs").permitAll();
 		return false;
 	}
 

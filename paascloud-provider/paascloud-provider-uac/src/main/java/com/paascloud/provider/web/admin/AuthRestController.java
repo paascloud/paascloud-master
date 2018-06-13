@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/uac/auth")
+@RequestMapping(value = "/auth")
 @Api(value = "Web-AuthRestController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class AuthRestController extends BaseController {
 	@Resource

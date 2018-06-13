@@ -35,7 +35,7 @@ import java.util.Objects;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/uac/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacUserMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacUserMainController extends BaseController {
 	@Resource

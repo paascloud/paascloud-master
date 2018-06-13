@@ -51,7 +51,6 @@ zuul:
     uac-route:
       path: /uac/**
       sensitiveHeaders:
-      strip-prefix: false
       service-id: paascloud-provider-uac
       ribbon:
         eager-load:
