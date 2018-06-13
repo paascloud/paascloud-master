@@ -304,7 +304,7 @@
       <dependency>
         <groupId>com.aliyun</groupId>
         <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-        <version>1.0.0-SANPSHOT</version>
+        <version>1.0.0</version>
       </dependency>
       <!-- https://mvnrepository.com/artifact/com.aliyun.mns/aliyun-sdk-mns -->
       <dependency>
@@ -467,15 +467,15 @@
       <properties>
         <profileActive>dev</profileActive>
       </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
     </profile>
     <profile>
       <id>pro</id>
       <properties>
         <profileActive>pro</profileActive>
       </properties>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
     </profile>
   </profiles>
 </project>

@@ -6,12 +6,12 @@ spring:
   profiles:
     active: @profileActive@
   mail:
-    host: smtp.sina.com
-    username: xxxxxxxxx@sina.com
-    password: yourpassword
+    host: ${paascloud.mail.host}
+    username: ${paascloud.mail.username}
+    password: ${paascloud.mail.password}
     port: 465
     protocol: smtp
-    test-connection: true
+    test-connection: false
     default-encoding: UTF-8
     properties:
       mail:
