@@ -57,6 +57,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
         </dependency>
+        <!-- swagger2聚合网关 -->
+        <dependency>
+            <groupId>com.didispace</groupId>
+            <artifactId>swagger-butler-core</artifactId>
+            <version>1.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
