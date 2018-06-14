@@ -39,7 +39,7 @@ info:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://root:root@paascloud-eureka:eureka:8761/eureka/
+      defaultZone: http://root:root@paascloud-eureka:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
 zuul:
@@ -51,7 +51,6 @@ zuul:
     uac-route:
       path: /uac/**
       sensitiveHeaders:
-      strip-prefix: false
       service-id: paascloud-provider-uac
       ribbon:
         eager-load:
@@ -166,3 +165,11 @@ logging:
   file: ${spring.application.name}.log
 paascloud:
   enableSqlLogInterceptor: false
+# swagger butler配置
+swagger.butler.api-docs-path: v2/api-docs
+swagger.butler.swagger-version: 1.0
+swagger.butler.auto-generate-from-zuul-routes: true
+# 指定要生成的范围
+swagger.butler.generate-routes: omc-route,mdc-route,opc-route,tpc-route,uac-route
+# 忽略某些路由生成
+# swagger.butler.ignore-routes: paascloud-monitor,paascloud-provider-uac,paascloud-provider-bsb,paascloud-discovery

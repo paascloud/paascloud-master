@@ -25,7 +25,7 @@ import java.util.List;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/uac/group", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/group", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacGroupMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacGroupMainController extends BaseController {
 

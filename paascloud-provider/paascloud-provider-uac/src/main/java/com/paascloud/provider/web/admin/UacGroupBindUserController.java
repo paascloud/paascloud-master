@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/uac/group", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/group", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacGroupBindUserController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacGroupBindUserController extends BaseController {
 

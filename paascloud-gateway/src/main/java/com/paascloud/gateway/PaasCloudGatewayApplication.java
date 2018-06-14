@@ -1,5 +1,6 @@
 package com.paascloud.gateway;
 
+import com.didispace.swagger.butler.EnableSwaggerButler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
@@ -21,6 +22,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableZuulProxy
 @EnableOAuth2Sso
 @EnableHystrix
+@EnableSwaggerButler
 public class PaasCloudGatewayApplication {
 
 	public static void main(String[] args) {

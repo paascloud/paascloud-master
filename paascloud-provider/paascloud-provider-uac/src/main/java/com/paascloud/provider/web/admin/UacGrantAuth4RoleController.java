@@ -25,7 +25,7 @@ import javax.annotation.Resource;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(value = "/uac/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/role", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacGrantAuth4RoleController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacGrantAuth4RoleController extends BaseController {
 
