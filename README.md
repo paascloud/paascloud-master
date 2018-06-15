@@ -117,14 +117,6 @@ Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
  ![这里写图片描述](http://img.paascloud.net/paascloud/doc/paascloud-qq-qun.png)
 
 
-### [问卷调查](//https://www.wjx.cn/jq/21780426.aspx)
-```
-   开源一周多来，我们看到了大家学习研究PaaSCloud兴趣高涨，再次感谢大家。我们深知项目还有很多不足，
-有很多地方需要完善，为了保证开源PaaSCloud能更好的为大家提供服务，现耽误朋友们几分钟时间填写一下
-调查问卷。
-```
-- 问卷链接： https://www.wjx.cn/jq/21780426.aspx
-
 ## 配套项目
 
 ```
@@ -144,8 +136,14 @@ Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
 - 模拟商城: http://mall.paascloud.net
 - 文档手册: http://document.paascloud.net
 - github: https://github.com/paascloud
+- 操作手册: http://blog.paascloud.net/2018/06/10/paascloud/doc/
 
 ### 架构图
 
 ![项目架构图](http://img.paascloud.net/paascloud/doc/paascloud-project.png)
+
+
+
+
+
 

@@ -20,7 +20,7 @@ import com.paascloud.security.core.social.view.PcConnectView;
  * @author paascloud.net @gmail.com
  */
 @Configuration
-@ConditionalOnProperty(prefix = "pc.security.social.weixin", name = "app-id")
+@ConditionalOnProperty(prefix = "paascloud.security.social.weixin", name = "app-id")
 public class WeixinAutoConfiguration extends SocialAutoConfigurerAdapter {
 
 	@Autowired

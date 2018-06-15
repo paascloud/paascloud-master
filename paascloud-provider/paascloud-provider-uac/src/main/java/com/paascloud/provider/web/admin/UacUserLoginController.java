@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author paascloud.net @gmail.com
  */
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - UacUserLoginController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UacUserLoginController extends BaseController {
 

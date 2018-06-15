@@ -18,7 +18,7 @@ import com.paascloud.security.core.properties.SecurityProperties;
  * @author paascloud.net@gmail.com
  */
 @Configuration
-@ConditionalOnProperty(prefix = "pc.security.social.qq", name = "app-id")
+@ConditionalOnProperty(prefix = "paascloud.security.social.qq", name = "app-id")
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
 	private final SecurityProperties securityProperties;

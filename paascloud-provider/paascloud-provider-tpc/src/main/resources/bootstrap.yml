@@ -24,7 +24,7 @@ logging:
     com.paascloud.provider: TRACE
 mybatis:
   type-aliases-package: com.paascloud.provider.model.domain
-  mapper-locations: classpath*:mapper/*.xml
+  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
 mapper:
@@ -44,7 +44,7 @@ security:
       access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
       user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
     resource:
-      user-info-uri: http://paascloud-provider-uac:7979/uac/user
+      user-info-uri: http://paascloud-gateway:7979/uac/user
       prefer-token-info: false
       jwt:
         key-uri: http://paascloud-provider-uac:8000/oauth/token_key
@@ -83,5 +83,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://root:root@paascloud-eureka:8761/eureka/
-    instance:
-      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}

@@ -9,7 +9,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   cloud:
     config:
-      uri: http://admin:admin@paascloud-discovery:8080/
+      uri: http://paascloud-discovery:8080/
       username: admin
       password: admin
       profile: ${spring.profiles.active}
@@ -30,7 +30,7 @@ logging:
     org.springframework.security: DEBUG
 mybatis:
   type-aliases-package: com.paascloud.provider.model.domain
-  mapper-locations: classpath*:mapper/*.xml
+  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
 mapper:
@@ -77,8 +77,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://root:root@paascloud-eureka:8761/eureka/
-    instance:
-      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
 security:
   oauth2:
     client:

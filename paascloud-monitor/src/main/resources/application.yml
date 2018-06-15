@@ -1,17 +1,17 @@
 server:
-  port: ${paascloud.server.monitor.port:8010}
+  port: 8010
 spring:
   application:
     name: @pom.artifactId@
   profiles:
     active: @profileActive@
   mail:
-    host: smtp.sina.com
+    host: ${paascloud.mail.host}
     username: ${paascloud.mail.username}
     password: ${paascloud.mail.password}
     port: 465
     protocol: smtp
-    test-connection: true
+    test-connection: false
     default-encoding: UTF-8
     properties:
       mail:
@@ -44,7 +44,7 @@ spring:
           from: xxxxxxxxx@sina.com
       turbine:
         clusters: default
-        location: turbine
+        location: ${spring.application.name}
       routes:
         endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream,activiti
 info:
@@ -63,9 +63,13 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://root:root@paascloud-eureka:8761/eureka/
-    instance:
-      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
 logging:
   level.root: info
   path: logs/
   file: ${spring.application.name}.log
+turbine:
+  app-config: paascloud-gateway #收集监控信息的服务名
+  combine-host-port: true
+  cluster-name-expression: new String('default') #集群名称

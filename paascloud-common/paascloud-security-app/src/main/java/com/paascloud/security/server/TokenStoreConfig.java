@@ -52,7 +52,7 @@ public class TokenStoreConfig {
 	 * @author paascloud.net @gmail.com
 	 */
 	@Configuration
-	@ConditionalOnProperty(prefix = "pc.security.oauth2", name = "tokenStore", havingValue = "jwt", matchIfMissing = true)
+	@ConditionalOnProperty(prefix = "paascloud.security.oauth2", name = "tokenStore", havingValue = "jwt", matchIfMissing = true)
 	public static class JwtConfig {
 
 		@Autowired

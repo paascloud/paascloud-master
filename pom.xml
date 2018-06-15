@@ -10,7 +10,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.6.RELEASE</version>
+    <version>1.5.13.RELEASE</version>
   </parent>
 
   <modules>
@@ -55,8 +55,7 @@
     <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
     <guava.version>17.0</guava.version>
-    <boot.admin.version>1.5.6</boot.admin.version>
-    <paascloud.version>1.0</paascloud.version>
+    <boot.admin.version>1.5.7</boot.admin.version>
     <httpclientutil.version>1.0</httpclientutil.version>
     <feign.form.spring.version>3.0.3</feign.form.spring.version>
     <spring.version>4.3.11.RELEASE</spring.version>
@@ -65,30 +64,26 @@
     <rocketmq.version>4.1.0-incubating</rocketmq.version>
   </properties>
 
-  <!-- nexus 3x
-  <distributionManagement>
-      <repository>
-          <id>nexus-releases</id>
-          <name>User Project Release</name>
-          <url>http://paascloud-nexus:8081/repository/maven-releases/</url>
-      </repository>
-      <snapshotRepository>
-          <id>nexus-snapshots</id>
-          <name>User Project Snapshot</name>
-          <url>http://paascloud-nexus:8081/repository/maven-snapshots/</url>
-          <uniqueVersion>true</uniqueVersion>
-      </snapshotRepository>
-  </distributionManagement>
-  -->
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+  </dependencies>
+
   <distributionManagement>
     <repository>
       <id>paascloud-lib-rep</id>
-      <url>http://nexus.paascloud.net/content/repositories/paascloud-lib-rep/</url>
+      <url>http://139.199.125.217:8081/content/repositories/paascloud-lib-rep/</url>
     </repository>
     <snapshotRepository>
       <id>nexus-snapshots</id>
       <name>User Project Snapshot</name>
-      <url>http://nexus.paascloud.net/content/repositories/snapshots/</url>
+      <url>http://139.199.125.217:8081/content/repositories/snapshots/</url>
       <uniqueVersion>true</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>
@@ -98,14 +93,14 @@
       <dependency>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>
-        <version>Brussels-SR7</version>
+        <version>Brussels-SR10</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>Edgware.RELEASE</version>
+        <version>Edgware.SR3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -134,6 +129,11 @@
       <dependency>
         <groupId>com.liuzm.paascloud.common</groupId>
         <artifactId>paascloud-common-zk</artifactId>
+        <version>${paascloud.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.liuzm.paascloud.common</groupId>
+        <artifactId>paascloud-security-app</artifactId>
         <version>${paascloud.version}</version>
       </dependency>
       <!-- paas cloud end -->
@@ -304,7 +304,7 @@
       <dependency>
         <groupId>com.aliyun</groupId>
         <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-        <version>1.0.0-SANPSHOT</version>
+        <version>1.0.0</version>
       </dependency>
       <!-- https://mvnrepository.com/artifact/com.aliyun.mns/aliyun-sdk-mns -->
       <dependency>
@@ -395,7 +395,7 @@
       <dependency>
         <groupId>com.liuzm.paascloud</groupId>
         <artifactId>elastic-job-lite-starter</artifactId>
-        <version>${paascloud.version}</version>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
@@ -443,7 +443,6 @@
         <artifactId>fastjson</artifactId>
         <version>${fastjson.version}</version>
       </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -468,15 +467,15 @@
       <properties>
         <profileActive>dev</profileActive>
       </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
     </profile>
     <profile>
       <id>pro</id>
       <properties>
         <profileActive>pro</profileActive>
       </properties>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
     </profile>
   </profiles>
 </project>

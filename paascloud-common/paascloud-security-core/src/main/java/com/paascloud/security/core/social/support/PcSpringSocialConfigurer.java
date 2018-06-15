@@ -74,8 +74,7 @@ public class PcSpringSocialConfigurer extends SpringSocialConfigurer {
 	 *
 	 * @param socialAuthenticationFilterPostProcessor the social authentication filter post processor
 	 */
-	public void setSocialAuthenticationFilterPostProcessor(
-			SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor) {
+	public void setSocialAuthenticationFilterPostProcessor(SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor) {
 		this.socialAuthenticationFilterPostProcessor = socialAuthenticationFilterPostProcessor;
 	}
 

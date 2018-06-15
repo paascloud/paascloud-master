@@ -50,7 +50,6 @@ public class QQAdapter implements ApiAdapter<QQ> {
 	 */
 	@Override
 	public UserProfile fetchUserProfile(QQ api) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

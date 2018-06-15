@@ -15,6 +15,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.task.TaskExecutor;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
@@ -30,8 +31,12 @@ import java.lang.reflect.Method;
 public class MqProducerStoreAspect {
 	@Resource
 	private MqMessageService mqMessageService;
+
 	@Value("${paascloud.aliyun.rocketMq.producerGroup}")
 	private String producerGroup;
+
+	@Resource
+	private TaskExecutor taskExecutor;
 
 	/**
 	 * Add exe time annotation pointcut.
@@ -86,7 +91,8 @@ public class MqProducerStoreAspect {
 		} else if (type == MqSendTypeEnum.DIRECT_SEND) {
 			mqMessageService.directSendMessage(domain);
 		} else {
-			mqMessageService.confirmAndSendMessage(domain.getMessageKey());
+			final MqMessageData finalDomain = domain;
+			taskExecutor.execute(() -> mqMessageService.confirmAndSendMessage(finalDomain.getMessageKey()));
 		}
 		return result;
 	}
