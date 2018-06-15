@@ -6,7 +6,7 @@ spring:
           uri: https://github.com/paascloud/paascloud-config-repo.git
           username:
           password:
-          search-paths: /*
+          search-paths: /**
     inetutils:
       ignoredInterfaces:
         - docker0
