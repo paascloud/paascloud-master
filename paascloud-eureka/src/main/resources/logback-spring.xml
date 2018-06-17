@@ -7,8 +7,12 @@
   <!-- 开启后可以通过jmx动态控制日志级别(springboot Admin的功能) -->
   <!--<jmxConfigurator/>-->
 
+  <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+  <property name="LOG_PATH" value="/data/logs/paascloud/${springAppName}"/>
+  <property name="LOG_FILE" value="${springAppName}"/>
+
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>${LOG_PATH}${LOG_FILE}</File>
+    <File>${LOG_PATH}/${LOG_FILE}</File>
     <encoder>
       <pattern>%date [%level] [%thread] %logger{60} [%file : %line] %msg%n</pattern>
     </encoder>
@@ -19,11 +23,6 @@
     </rollingPolicy>
   </appender>
 
-  <!--<logger name="org.springframework" level="error"/>-->
-  <!--<logger name="jdbc.connection" level="OFF"/>-->
-  <!--<logger name="org.apache" level="error"/>-->
-  <!--<logger name="com.alibaba" level="error"/>-->
-  <!--<logger name="org.apache.kafka.clients.producer.ProducerConfig" level="warn"/>-->
 
   <root level="INFO">
     <appender-ref ref="CONSOLE"/>

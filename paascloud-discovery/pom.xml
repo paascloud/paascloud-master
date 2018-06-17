@@ -56,6 +56,10 @@
       <artifactId>spring-boot-admin-starter-client</artifactId>
       <version>1.5.7</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

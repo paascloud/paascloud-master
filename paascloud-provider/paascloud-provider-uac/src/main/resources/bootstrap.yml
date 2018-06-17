@@ -1,91 +1,20 @@
 spring:
-  aop:
-    proxy-target-class: true
-    auto: true
-  mvc:
-    date-format: yyyy-MM-dd HH:mm:ss
-  jackson:
-    joda-date-time-format: yyyy-MM-dd HH:mm:ss
-    date-format: yyyy-MM-dd HH:mm:ss
+  profiles:
+    active: dev
   cloud:
     config:
-      uri: http://paascloud-discovery:8080/
+      fail-fast: true
+      discovery:
+        service-id: paascloud-discovery
+        enabled: true
+      label: ${spring.profiles.active}
+      profile: ${spring.profiles.active}
       username: admin
       password: admin
-      profile: ${spring.profiles.active}
-      label: master
-      fail-fast: true
-    inetutils:
-      ignoredInterfaces:
-        - docker0
-        - veth.*
-logging:
-  level:
-    root: INFO
-    org.hibernate: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    org.springframework.cloud.sleuth: DEBUG
-    com.paascloud.provider: TRACE
-    org.springframework.security: DEBUG
-mybatis:
-  type-aliases-package: com.paascloud.provider.model.domain
-  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-mapper:
-  mappers: com.paascloud.core.mybatis.MyMapper
-  not-empty: false
-  identity: MYSQL
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
-feign:
-  hystrix:
-    enabled: true
-  client:
-    config:
-      default:
-        connectTimeout: 10000
-        readTimeout: 10000
-ribbon:
-  eager-load:
-    enabled: true
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 2
-  OkToRetryOnAllOperations: false
-  ConnectTimeout: 60000
-  ReadTimeout: 60000
-hystrix:
-  propagate:
-    request-attribute:
-      enabled: true
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 20000
-management:
-  security:
-    enabled: false
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://root:root@paascloud-eureka:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
-security:
-  oauth2:
-    client:
-      clientId: paascloud-client-uac
-      clientSecret: paascloudClientSecret
-      access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
-      user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
-    resource:
-      id: paascloud-resource-uac
-      filter-order: 3

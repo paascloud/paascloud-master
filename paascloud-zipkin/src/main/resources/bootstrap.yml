@@ -1,10 +1,18 @@
 spring:
   cloud:
     config:
-      uri: http://admin:admin@paascloud-discovery:8080/
-      label: master
+      fail-fast: true
+      discovery:
+        service-id: paascloud-discovery
+        enabled: true
+      label: ${spring.profiles.active}
       profile: ${spring.profiles.active}
-      ignoredInterfaces:
-        - docker0
-        - veth.*
-        - VM.*
+      username: admin
+      password: admin
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@paascloud-eureka:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}

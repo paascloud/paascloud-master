@@ -7,11 +7,19 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type App social authentication filter post processor.
+ * @author paascloud
+ */
 @Component
 public class AppSocialAuthenticationFilterPostProcessor implements SocialAuthenticationFilterPostProcessor{
 
+	private final AuthenticationSuccessHandler pcAuthenticationSuccessHandler;
+
 	@Autowired
-	private AuthenticationSuccessHandler pcAuthenticationSuccessHandler;
+	public AppSocialAuthenticationFilterPostProcessor(AuthenticationSuccessHandler pcAuthenticationSuccessHandler) {
+		this.pcAuthenticationSuccessHandler = pcAuthenticationSuccessHandler;
+	}
 
 	@Override
 	public void process(final SocialAuthenticationFilter socialAuthenticationFilter) {

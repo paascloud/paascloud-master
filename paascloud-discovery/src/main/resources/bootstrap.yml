@@ -7,15 +7,25 @@ spring:
           username:
           password:
           search-paths: /*
+          default-label: ${spring.profiles.active}
+          basedir: /data/config/paascloud-config-repo
     inetutils:
       ignoredInterfaces:
         - docker0
         - veth.*
       preferredNetworks:
         - 192.168
+
 encrypt:
   key-store:
     location: classpath:/server.jks
     password: paascloud-storepass
     alias: paascloud-key-store
     secret: paascloud-keypass
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@paascloud-eureka:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}

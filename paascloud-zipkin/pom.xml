@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>paascloud-zipkin</name>
-	<description>Demo project for Spring Boot</description>
+	<description>微服务链路追踪</description>
 
     <parent>
         <groupId>com.liuzm.paascloud</groupId>
@@ -23,6 +23,10 @@
 	</properties>
 
 	<dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-config</artifactId>
+     </dependency>
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-autoconfigure-ui</artifactId>
@@ -75,6 +79,10 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-autoconfigure-collector-rabbitmq</artifactId>
         </dependency>
 	</dependencies>
 

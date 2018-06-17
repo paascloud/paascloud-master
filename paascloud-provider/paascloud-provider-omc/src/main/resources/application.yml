@@ -1,77 +1,11 @@
 server:
   port: 8050
-  tomcat:
-    uri-encoding: UTF-8
-    remote-ip-header: x-forwarded-for
-  use-forward-headers: true
+
 spring:
-  application:
-      name: @pom.artifactId@
   profiles:
-    active: @profileActive@
-  boot:
-    admin:
-      username: admin
-      password: admin
-  redis:
-    host: paascloud-db-redis
-    password: 123456
-    port: 6379
-    timeout: 0
+    active: dev
+  application:
+    name: @pom.artifactId@
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_omc?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456
-    filters: stat,wall
-    druid:
-      initial-size: 10
-      min-idle: 10
-      max-active: 30
-      test-on-borrow: true
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      web-stat-filter:
-        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-      stat-view-servlet:
-        allow:
-        login-username: admin
-        login-password: admin
-  zipkin:
-    base-url: http://paascloud-zipkin:8020
-  sleuth:
-    sampler:
-      percentage: 0.3
-liquibase:
-  change-log: classpath:liquibase/index.xml
-  user: ${spring.datasource.username}
-  password: ${spring.datasource.password}
-  url: ${spring.datasource.url}
-info:
-  owner: paascloud.net@gmail.com
-  version: @project.version@
-paascloud:
-  enableSqlLogInterceptor: false
-  token:
-    interceptor:
-      enable: true
-  zk:
-    zkAddressList: paascloud-provider-zk:2181
-  swagger:
-    title: @pom.artifactId@
-    description: @pom.description@
-  oauth2:
-    jwtSigningKey: paascloud
-    client:
-      id: ${security.oauth2.resource.id}
-      accessTokenUrl: ${security.oauth2.client.access-token-uri}
-      clientId: ${security.oauth2.client.clientId}
-      clientSecret: ${security.oauth2.client.clientSecret}
-      clientAuthenticationScheme: header
-      tokenStore: jwt
-  alipay:
-    callback:
-      url: http://api.paascloud.net/omc/pay/alipayCallback
-    qrCode:
-      pcPath: E:/File/alipay/QRCode
-      qiniuPath: alipay/QRCode/

@@ -1,11 +1,15 @@
 server:
   port: 8761
+
 spring:
   profiles:
-    active: @profileActive@
+    active: dev
   application:
     name: @pom.artifactId@
-logging:
-  level.root: info
-  path: logs/
-  file: ${spring.application.name}.log
+
+security:
+  basic:
+    enabled: true
+  user:
+    name: root
+    password: root

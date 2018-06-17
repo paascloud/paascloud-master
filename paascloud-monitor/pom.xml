@@ -25,11 +25,15 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+      <artifactId>spring-cloud-starter-config</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-turbine</artifactId>
+      <artifactId>spring-cloud-starter-hystrix</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
     </dependency>
     <dependency>
       <groupId>de.codecentric</groupId>
@@ -50,10 +54,6 @@
     <dependency>
       <groupId>de.codecentric</groupId>
       <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>de.codecentric</groupId>
-      <artifactId>spring-boot-admin-server-ui-activiti</artifactId>
     </dependency>
     <dependency>
       <groupId>de.codecentric</groupId>
@@ -79,6 +79,22 @@
       <groupId>de.codecentric</groupId>
       <artifactId>spring-boot-admin-starter-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-netflix-turbine</artifactId>
+    </dependency>
+    <!-- <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-turbine-amqp</artifactId>
+     </dependency>
+   <dependency>
+     <groupId>org.springframework.cloud</groupId>
+     <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+   </dependency>
+   <dependency>
+     <groupId>org.springframework.cloud</groupId>
+     <artifactId>spring-cloud-netflix-turbine-stream</artifactId>
+   </dependency>-->
   </dependencies>
 
   <build>

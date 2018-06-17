@@ -2,17 +2,17 @@ package com.paascloud.discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.sleuth.zipkin.stream.EnableZipkinStreamServer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import zipkin.server.EnableZipkinServer;
 
 /**
  * The class Paas cloud zipkin application.
  *
  * @author paascloud.net@gmail.com
  */
-@EnableEurekaClient
+@EnableDiscoveryClient
 @SpringBootApplication
-@EnableZipkinStreamServer
+@EnableZipkinServer
 public class PaasCloudZipkinApplication {
 
 	/**

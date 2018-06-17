@@ -1,75 +1,8 @@
 server:
   port: 8010
+
 spring:
+  profiles:
+    active: dev
   application:
     name: @pom.artifactId@
-  profiles:
-    active: @profileActive@
-  mail:
-    host: ${paascloud.mail.host}
-    username: ${paascloud.mail.username}
-    password: ${paascloud.mail.password}
-    port: 465
-    protocol: smtp
-    test-connection: false
-    default-encoding: UTF-8
-    properties:
-      mail:
-        debug: true
-        smtp:
-          auth: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
-          socketFactory:
-            class: javax.net.ssl.SSLSocketFactory
-            port: 465
-          starttls:
-            enable: true
-            required: true
-  boot:
-    admin:
-      client:
-        metadata:
-          user:
-            name: ${security.user.name}
-            password: ${security.user.password}
-      monitor:
-        period: 60000
-      discovery:
-        enabled: true
-      notify:
-        mail:
-          to: xxxxxxxxx@qq.com
-          from: xxxxxxxxx@sina.com
-      turbine:
-        clusters: default
-        location: ${spring.application.name}
-      routes:
-        endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream,activiti
-info:
-  owner: paascloud.net@gmail.com
-  version: @project.version@
-management:
-  security:
-    enabled: false
-security:
-  user:
-    name: admin
-    password: admin
-  basic:
-    enabled: false
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://root:root@paascloud-eureka:8761/eureka/
-  instance:
-    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
-logging:
-  level.root: info
-  path: logs/
-  file: ${spring.application.name}.log
-turbine:
-  app-config: paascloud-gateway #收集监控信息的服务名
-  combine-host-port: true
-  cluster-name-expression: new String('default') #集群名称

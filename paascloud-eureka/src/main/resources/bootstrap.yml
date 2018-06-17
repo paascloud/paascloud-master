@@ -7,12 +7,7 @@ spring:
         - VM.*
       preferredNetworks:
         - 192.168
-security:
-  basic:
-    enabled: true
-  user:
-    name: root
-    password: root
+
 eureka:
   server:
     enable-self-preservation: false

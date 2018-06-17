@@ -1,98 +1,15 @@
 spring:
-  http:
-    encoding:
-      force: true
-      charset: UTF-8
-      enabled: true
-    multipart:
-      enabled: true
-      max-request-size: 50MB
-      max-file-size: 50MB
-  aop:
-    proxy-target-class: true
-    auto: true
-  mvc:
-    date-format: yyyy-MM-dd HH:mm:ss
-  jackson:
-    joda-date-time-format: yyyy-MM-dd HH:mm:ss
-    date-format: yyyy-MM-dd HH:mm:ss
   cloud:
     config:
-      uri: http://paascloud-discovery:8080/
+      fail-fast: true
+      discovery:
+        service-id: paascloud-discovery
+        enabled: true
+      label: ${spring.profiles.active}
+      profile: ${spring.profiles.active}
       username: admin
       password: admin
-      profile: ${spring.profiles.active}
-      label: master
-      fail-fast: true
-    inetutils:
-      ignoredInterfaces:
-        - docker0
-        - veth.*
-logging:
-  level:
-    root: INFO
-    org.hibernate: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    org.springframework.cloud.sleuth: DEBUG
-    com.paascloud.provider: TRACE
-mybatis:
-  type-aliases-package: com.paascloud.provider.model.domain
-  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-mapper:
-  mappers: com.paascloud.core.mybatis.MyMapper
-  not-empty: false
-  identity: MYSQL
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
-security:
-  oauth2:
-    client:
-      clientId: paascloud-client-opc
-      clientSecret: paascloudClientSecret
-      access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
-      user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
-    resource:
-      user-info-uri: http://paascloud-provider-uac:8000/user
-      prefer-token-info: false
-      jwt:
-        key-uri: http://paascloud-provider-uac:8000/oauth/token_key
-feign:
-  hystrix:
-    enabled: true
-  client:
-    config:
-      default:
-        connectTimeout: 10000
-        readTimeout: 10000
-ribbon:
-  eager-load:
-    enabled: true
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 2
-  OkToRetryOnAllOperations: false
-  ConnectTimeout: 60000
-  ReadTimeout: 20000
-hystrix:
-  propagate:
-    request-attribute:
-      enabled: true
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 20000
-management:
-  security:
-    enabled: false
+
 eureka:
   client:
     serviceUrl:

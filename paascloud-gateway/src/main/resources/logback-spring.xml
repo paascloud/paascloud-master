@@ -1,32 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    ​
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <!-- Example for logging into the build folder of your project -->
+    <property name="LOG_FILE" value="/data/logs/paascloud/${springAppName}/${springAppName}"/>
+    ​
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([${springAppName:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-B3-ParentSpanId:-},%X{X-Span-Export:-}]){yellow} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
-  <!-- 此xml在spring-boot-1.5.3.RELEASE.jar里 -->
-  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
-  <!-- 开启后可以通过jmx动态控制日志级别(springboot Admin的功能) -->
-  <!--<jmxConfigurator/>-->
+    <!-- Appender to log to console -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- Minimum logging level to be presented in the console logs -->
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 
-  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>${LOG_PATH}${LOG_FILE}</File>
-    <encoder>
-      <pattern>%date [%level] [%thread] %logger{60} [%file : %line] %msg%n</pattern>
-    </encoder>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <!-- 添加.gz 历史日志会启用压缩 大大缩小日志文件所占空间 -->
-      <fileNamePattern>${LOG_PATH}daily/${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
-      <maxHistory>30</maxHistory><!--  保留30天日志 -->
-    </rollingPolicy>
-  </appender>
-
-  <!--<logger name="org.springframework" level="error"/>-->
-  <!--<logger name="jdbc.connection" level="OFF"/>-->
-  <!--<logger name="org.apache" level="error"/>-->
-  <!--<logger name="com.alibaba" level="error"/>-->
-  <!--<logger name="org.apache.kafka.clients.producer.ProducerConfig" level="warn"/>-->
-
+    <!-- Appender to log to file -->
+    <appender name="flatfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    ​
+    <!-- Appender to log to file in a JSON format -->
+    <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}.json</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.json.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "severity": "%level",
+                        "service": "${springAppName:-}",
+                        "trace": "%X{X-B3-TraceId:-}",
+                        "span": "%X{X-B3-SpanId:-}",
+                        "parent": "%X{X-B3-ParentSpanId:-}",
+                        "exportable": "%X{X-Span-Export:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "rest": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+    ​
   <root level="INFO">
-    <appender-ref ref="CONSOLE"/>
-    <appender-ref ref="FILE"/>
-  </root>
+    <appender-ref ref="console"/>
+        <appender-ref ref="logstash"/>
+        <appender-ref ref="flatfile"/>
+    </root>
 </configuration>

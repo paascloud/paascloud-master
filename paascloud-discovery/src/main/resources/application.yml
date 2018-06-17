@@ -1,30 +1,27 @@
 server:
   port: 8080
+
 spring:
   profiles:
-    active: @profileActive@
+    active: dev
   application:
     name: @pom.artifactId@
+  rabbitmq:
+    host: paascloud-mq-rabbit
+    port: 5672
+    username: guest
+    password: guest
   boot:
     admin:
       username: admin
       password: admin
-info:
-  owner: paascloud.net@gmail.com
-  version: @project.version@
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://root:root@paascloud-eureka:8761/eureka/
-  instance:
-    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
 
 security:
   user:
     name: admin
     password: admin
-logging:
-  level.root: info
-  path: logs/
-  file: ${spring.application.name}.log
+
+info:
+  软件著作权: paascloud快速搭建企业级分布式微服务平台
+  著作登记号: 2018SR320076
+  关于我们: http://paascloud.net
