@@ -1,4 +1,3 @@
-
 package com.paascloud.core.registry.base;
 
 import org.apache.curator.framework.recipes.atomic.AtomicValue;
