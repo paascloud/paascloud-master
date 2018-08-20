@@ -13,7 +13,7 @@ adminweb：容器名称
 /paascloud-eureka.jar：第二步中斜杠"/"拼接上appName
 docker run --name eureka_01 -idt --net=host  ryanzl/eureka:1.0 -server -Xms500m -Xmx500m -jar /paascloud-eureka.jar
 
-4、
+4、实例
 1）eureka
   $ cd /paascloud
   $ docker build --build-arg projectDir=paascloud-eureka --build-arg appName=paascloud-eureka -t ryanzl/eureka:1.0 .
