@@ -1,0 +1,37 @@
+1、cd到项目根目录
+  $ cd /paascloud
+
+2、构建镜像
+  -参数说明：
+    projectDir：相对于根目录的子项目目录，eg. 如果你需要打包paascloud-eureka子项目的话，projectDir=paascloud-eureka
+      如果需要打包paascloud-provider-uac子项目，projectDir=paascloud-provider/paascloud-provider-uac
+    appName：最终打包成jar名称，运行容器的时候，启动命令的jar名称和此appname一致，如下-server -Xms500m -Xmx500m -jar /paascloud-eureka.jar
+docker build --build-arg projectDir=paascloud-eureka --build-arg appName=paascloud-eureka -t ryanzl/eureka:1.0 .
+
+3、运行应用（运行容器）
+adminweb：容器名称
+/paascloud-eureka.jar：第二步中斜杠"/"拼接上appName
+docker run --name eureka_01 -idt --net=host  ryanzl/eureka:1.0 -server -Xms500m -Xmx500m -jar /paascloud-eureka.jar
+
+4、
+1）eureka
+  $ cd /paascloud
+  $ docker build --build-arg projectDir=paascloud-eureka --build-arg appName=paascloud-eureka -t ryanzl/eureka:1.0 .
+  $ docker run --name eureka_01 -idt --net=host  ryanzl/eureka:1.0 -server -Xms500m -Xmx500m -jar /paascloud-eureka.jar
+
+2) discovery
+  $ cd /paascloud
+  $ docker build --build-arg projectDir=paascloud-discovery --build-arg appName=paascloud-discovery -t ryanzl/discovery:1.0 .
+  $ docker run --name discovery_01 -idt --net=host  ryanzl/discovery:1.0 -jar /paascloud-discovery.jar
+
+3）paascloud-provider-uac
+  $ cd /paascloud
+  $ docker build --build-arg projectDir=paascloud-provider/paascloud-provider-uac --build-arg appName=paascloud-uac -t ryanzl/paascloud-uac:1.0 .
+  $ docker run --name paascloud-uac_01 -idt --net=host  ryanzl/paascloud-uac:1.0 -jar /paascloud-uac.jar
+
+4）paascloud-gateway
+  $ cd /paascloud
+  $ docker build --build-arg projectDir=paascloud-gateway --build-arg appName=paascloud-gateway -t ryanzl/paascloud-gateway:1.0 .
+  $ docker run --name discovery_01 -idt --net=host  ryanzl/paascloud-gateway:1.0 -jar /paascloud-gateway.jar
+
+5）其它服务同上
