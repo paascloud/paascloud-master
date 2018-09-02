@@ -112,9 +112,9 @@
 Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
 ```
 
-### [QQ群](//shang.qq.com/wpa/qunwpa?idkey=d09a293bcef98e6b5348dfbb3f4587eb80f81bbef3449b250921582cc3c7b3df)
- 
- ![这里写图片描述](http://img.paascloud.net/paascloud/doc/paascloud-qq-qun.png)
+### QQ群交流
+ ①：519587831（满）  
+ ②：873283104
 
 
 ## 配套项目
@@ -132,8 +132,8 @@ Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
 
 ### 传送门
 - 博客入口： http://blog.paascloud.net
-- 后端入口： http://admin.paascloud.net
-- 模拟商城: http://mall.paascloud.net
+- 后端入口： http://admin.paascloud.net (支持微信登录体验)
+- 模拟商城: http://mall.paascloud.net (支持微信登录体验)
 - 文档手册: http://document.paascloud.net
 - github: https://github.com/paascloud
 - 操作手册: http://blog.paascloud.net/2018/06/10/paascloud/doc/
