@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Sep 19 22:43:29 CST 2016
+mybatis-generator-1.0.0-SNAPSHOT.pom>=
+mybatis-generator-1.0.0-SNAPSHOT.jar>=

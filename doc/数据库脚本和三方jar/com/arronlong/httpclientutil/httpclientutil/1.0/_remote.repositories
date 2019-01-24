@@ -1,0 +1,5 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sun Mar 11 21:03:42 CST 2018
+httpclientutil-1.0.jar>=
+httpclientutil-1.0-sources.jar>aliyun-repo=
+httpclientutil-1.0.pom>=

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.liuzm.paascloud</groupId>
+  <artifactId>elastic-job-lite-starter</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20180221030914</lastUpdated>
+  </versioning>
+</metadata>
