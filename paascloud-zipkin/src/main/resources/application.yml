@@ -8,4 +8,4 @@ spring:
     name: @pom.artifactId@
   datasource:
     username: root
-    password: 123456
+    password: admin,123

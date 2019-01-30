@@ -33,7 +33,7 @@ public class MailTest extends PaasCloudOmcApplicationTests{
     @Ignore
     public void sendSimpleMailText() throws Exception {
         String subject = "测试sendSimpleMail邮件";
-        String text = "<html><body><img src=\"cid:weixin\" >123456</body></html>";
+        String text = "<html><body><img src=\"cid:weixin\" >admin,123</body></html>";
         Set<String> to = Sets.newHashSet();
         to.add("xxxx@163.com");
         optSendMailService.sendSimpleMail(subject, text, to);

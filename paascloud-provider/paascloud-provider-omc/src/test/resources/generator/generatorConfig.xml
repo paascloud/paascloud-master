@@ -17,7 +17,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/paas_cloud"
                         userId="root"
-                        password="123456">
+                        password="admin,123">
         </jdbcConnection>
 
         <javaModelGenerator targetPackage="test.mybatis.springboot.model" targetProject="src/test/java"/>

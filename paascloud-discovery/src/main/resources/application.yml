@@ -9,8 +9,8 @@ spring:
   rabbitmq:
     host: paascloud-mq-rabbit
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: admin
   boot:
     admin:
       username: admin

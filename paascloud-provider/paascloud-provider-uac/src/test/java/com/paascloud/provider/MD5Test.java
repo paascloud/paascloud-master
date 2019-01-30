@@ -20,7 +20,7 @@ public class MD5Test {
 		Md5PasswordEncoder md5 = new Md5PasswordEncoder();
 		// false 表示：生成32位的Hex版, 这也是encodeHashAsBase64的, Acegi 默认配置; true  表示：生成24位的Base64版     
 		md5.setEncodeHashAsBase64(false);
-		String pwd = md5.encodePassword("123456", null);
+		String pwd = md5.encodePassword("admin,123", null);
 		log.info("MD5: " + pwd + " len=" + pwd.length());
 	}
 
@@ -31,7 +31,7 @@ public class MD5Test {
 	private static void sha_256() {
 		ShaPasswordEncoder sha = new ShaPasswordEncoder(256);
 		sha.setEncodeHashAsBase64(true);
-		String pwd = sha.encodePassword("123456", null);
+		String pwd = sha.encodePassword("admin,123", null);
 		log.info("哈希算法 256: " + pwd + " len=" + pwd.length());
 	}
 
@@ -42,7 +42,7 @@ public class MD5Test {
 	private static void sha_SHA_256() {
 		ShaPasswordEncoder sha = new ShaPasswordEncoder();
 		sha.setEncodeHashAsBase64(false);
-		String pwd = sha.encodePassword("123456", null);
+		String pwd = sha.encodePassword("admin,123", null);
 		log.info("哈希算法 SHA-256: " + pwd + " len=" + pwd.length());
 	}
 
@@ -55,7 +55,7 @@ public class MD5Test {
 		md5.setEncodeHashAsBase64(false);
 
 		// 使用动态加密盐的只需要在注册用户的时候将第二个参数换成用户名即可     
-		String pwd = md5.encodePassword("123456", "acegisalt");
+		String pwd = md5.encodePassword("admin,123", "acegisalt");
 		log.info("MD5 SystemWideSaltSource: " + pwd + " len=" + pwd.length());
 	}
 
@@ -76,7 +76,7 @@ public class MD5Test {
 		String salt = KeyGenerators.string().generateKey();
 		log.info(salt);
 		log.info("salt.length={}", salt.length());
-		String encrypt = Md5Util.encrypt("123456");
+		String encrypt = Md5Util.encrypt("admin,123");
 		log.info(encrypt);
 	}
 
