@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <!-- 此xml在spring-boot-1.5.3.RELEASE.jar里 -->
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+  <!-- 开启后可以通过jmx动态控制日志级别(springboot Admin的功能) -->
+  <!--<jmxConfigurator/>-->
+
+  <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+  <property name="LOG_PATH" value="/data/logs/paascloud/${springAppName}"/>
+  <property name="LOG_FILE" value="${springAppName}"/>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>${LOG_PATH}/${LOG_FILE}</File>
+    <encoder>
+      <pattern>%date [%level] [%thread] %logger{60} [%file : %line] %msg%n</pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 添加.gz 历史日志会启用压缩 大大缩小日志文件所占空间 -->
+      <fileNamePattern>${LOG_PATH}daily/${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+      <maxHistory>30</maxHistory><!--  保留30天日志 -->
+    </rollingPolicy>
+  </appender>
+
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+  </root>
+</configuration>

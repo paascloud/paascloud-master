@@ -26,7 +26,7 @@
 │  │
 │  ├─paascloud-eureka--------------------------微服务注册中心
 │  │
-│  ├─paascloud-discovery-----------------------微服务配置中心
+│  ├─paascloud-config--------------------------微服务配置中心
 │  │
 │  ├─paascloud-monitor-------------------------微服务监控中心
 │  │
@@ -77,18 +77,6 @@
 │  │  ├─paascloud-security-core------------------安全服务核心包
 │  │  │
 │  │  └─paascloud-security-feign------------------基于auth2的feign配置
-│  │
-│  ├─paascloud-generator
-│  │  │
-│  │  ├─paascloud-generator-mdc------------------数据服务中心Mybatis Generator
-│  │  │
-│  │  ├─paascloud-generator-omc------------------数据服务中心Mybatis Generator
-│  │  │
-│  │  ├─paascloud-generator-opc------------------数据服务中心Mybatis Generator
-│  │  │
-│  │  ├─paascloud-generator-tpc------------------数据服务中心Mybatis Generator
-│  │  │
-│  │  └─paascloud-generator-uac------------------数据服务中心Mybatis Generator
 
 
 
@@ -109,18 +97,23 @@
 ### 作者介绍
 
 ```
-Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
+Spring Cloud 爱好者, 现就任于每日优鲜物流中台业务架构组.
 ```
+
+和作者交个朋友吧, 微信扫一扫, 请备注paascloud
+
+<a><img height="300" width="300" src="http://img.paascloud.net/image/paascloud/liuzhaoming-wechat.jpeg"/></a>
+
 
 ### QQ群交流
  ①：519587831（满）  
  ②：873283104（满）  
  ③：882458726（满）  
- ④：693445268    
- ⑤：813682656    
- ⑥：797334670    
- ⑦：797876073    
- ⑧：814712305    
+ ④：693445268（满）    
+ ⑤：813682656（满）    
+ ⑥：797334670（满）    
+ ⑦：797876073（满）    
+ ⑧：814712305（满）    
  ⑨：……    
 
 ### FAQ
@@ -140,19 +133,16 @@ Spring Cloud 爱好者,现就任于鲜易供应链平台研发部.
 ```
 
 ### 传送门
-- 博客入口： http://blog.paascloud.net
-- 后端入口： http://admin.paascloud.net (支持微信登录体验)
-- 模拟商城: http://mall.paascloud.net (支持微信登录体验)
-- 文档手册: http://document.paascloud.net
+- 博客入口： https://blog.paascloud.net
+- 模拟商城: https://mall.paascloud.net (支持微信登录体验)
+- 文档手册: https://document.paascloud.net
 - github: https://github.com/paascloud
-- 操作手册: http://blog.paascloud.net/2018/06/10/paascloud/doc/
 
 ### 架构图
 
-![项目架构图](http://img.paascloud.net/paascloud/doc/paascloud-project.png)
+![项目架构图](http://img.paascloud.net/image/paascloud/paascloud-framework-2.0.png)
 
 
+### 关于项目
 
-
-
-
+本项目受国家计算机软件著作权保护（登记号：2018SR320076）, 请遵循开源协议, 不得将本软件用于商业用途

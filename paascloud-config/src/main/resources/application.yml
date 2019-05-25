@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: @pom.artifactId@
+  rabbitmq:
+    host: paascloud-mq-rabbit
+    port: 5672
+    username: guest
+    password: guest
+  boot:
+    admin:
+      username: admin
+      password: admin
+
+security:
+  user:
+    name: admin
+    password: admin
+
+info:
+  软件著作权: paascloud快速搭建企业级分布式微服务平台
+  著作登记号: 2018SR320076
+  关于我们: http://paascloud.net

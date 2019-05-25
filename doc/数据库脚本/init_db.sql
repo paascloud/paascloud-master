@@ -1,0 +1,10 @@
+DROP DATABASE IF EXISTS `paascloud_mdc`;
+CREATE DATABASE paascloud_mdc;
+DROP DATABASE IF EXISTS `paascloud_uac`;
+CREATE DATABASE paascloud_uac;
+DROP DATABASE IF EXISTS `paascloud_opc`;
+CREATE DATABASE paascloud_opc;
+DROP DATABASE IF EXISTS `paascloud_omc`;
+CREATE DATABASE paascloud_omc;
+DROP DATABASE IF EXISTS `paascloud_tpc`;
+CREATE DATABASE paascloud_tpc;

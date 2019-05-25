@@ -1,0 +1,123 @@
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    multipart:
+      enabled: true
+      max-request-size: 50MB
+      max-file-size: 50MB
+
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  forceOriginalQueryStringEncoding: true
+  routes:
+    uac-route:
+      path: /uac/**
+      sensitiveHeaders:
+#      strip-prefix: false
+      service-id: paascloud-provider-uac
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    mdc-route:
+      path: /mdc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-mdc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    omc-route:
+      path: /omc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-omc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    opc-route:
+      path: /opc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-opc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    mall-route:
+      path: /mall/**
+      sensitiveHeaders:
+      service-id: paascloud-web-mall
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    tpc-route:
+      path: /tpc/**
+      sensitiveHeaders:
+      service-id: paascloud-provider-tpc
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+  add-proxy-headers: true
+  add-host-header: true
+
+security:
+  oauth2:
+    client:
+      clientId: paascloud-client-gateway
+      clientSecret: paascloudClientSecret
+      access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
+      user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
+    resource:
+      user-info-uri: http://paascloud-gateway:7979/uac/user
+      prefer-token-info: false
+      jwt:
+        key-uri: http://paascloud-provider-uac:8000/oauth/token_key
+
+proxy:
+  auth:
+    routes:
+      uac-route: oauth2
+      mdc-route: oauth2
+
+paascloud:
+  enableSqlLogInterceptor: false
+# swagger butler配置
+swagger.butler:
+  api-docs-path: v2/api-docs
+  swagger-version: 1.0
+  auto-generate-from-zuul-routes: true
+# 指定要生成的范围
+  generate-routes: omc-route,mdc-route,opc-route,tpc-route,uac-route
+# 忽略某些路由生成
+#  ignore-routes:

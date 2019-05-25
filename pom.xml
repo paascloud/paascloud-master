@@ -15,14 +15,13 @@
 
   <modules>
     <module>paascloud-eureka</module>
-    <module>paascloud-discovery</module>
+    <module>paascloud-config</module>
     <module>paascloud-monitor</module>
     <module>paascloud-zipkin</module>
     <module>paascloud-gateway</module>
     <module>paascloud-provider-api</module>
     <module>paascloud-common</module>
     <module>paascloud-provider</module>
-    <module>paascloud-generator</module>
   </modules>
 
   <developers>
@@ -364,11 +363,6 @@
       <dependency>
         <groupId>de.codecentric</groupId>
         <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
-        <version>${boot.admin.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.codecentric</groupId>
-        <artifactId>spring-boot-admin-server-ui-activiti</artifactId>
         <version>${boot.admin.version}</version>
       </dependency>
       <dependency>
