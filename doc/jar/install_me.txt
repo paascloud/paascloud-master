@@ -1,0 +1,11 @@
+mvn install:install-file -Dfile=D:\jar\alipay-sdk-java-20170725114550.jar -DgroupId=com.alipay -DartifactId=alipay-sdk-java -Dversion=20170725114550 -Dpackaging=jar
+
+mvn install:install-file -Dfile=D:\jar\alipay-trade-sdk-20161215.jar -DgroupId=com.alipay -DartifactId=alipay-trade-sdk -Dversion=20161215 -Dpackaging=jar
+
+
+mvn install:install-file -Dfile=D:\jar\elastic-job-lite-starter-1.0-SNAPSHOT.jar -DgroupId=com.liuzm.paascloud -DartifactId=elastic-job-lite-starter -Dversion=1.0-SNAPSHOT -Dpackaging=jar
+
+mvn install:install-file -Dfile=D:\jar\aliyun-java-sdk-dysmsapi-1.0.0.jar -DgroupId=com.aliyun -DartifactId=aliyun-java-sdk-dysmsapi -Dversion=1.0.0 -Dpackaging=jar
+
+
+
