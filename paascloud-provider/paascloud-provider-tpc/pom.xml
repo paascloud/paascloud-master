@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.liuzm.paascloud.provider</groupId>
@@ -15,13 +15,13 @@
     <name>paascloud-provider-tpc</name>
     <description>任务中心 - Task processing center</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
@@ -31,10 +31,10 @@
             <groupId>com.liuzm.paascloud.provider.api</groupId>
             <artifactId>paascloud-provider-opc-api</artifactId>
         </dependency>
-    <dependency>
-      <groupId>com.liuzm.paascloud.provider.api</groupId>
-      <artifactId>paascloud-provider-mdc-api</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>com.liuzm.paascloud.provider.api</groupId>
+            <artifactId>paascloud-provider-mdc-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -69,25 +69,37 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.springframework.cloud</groupId>
-          <artifactId>spring-cloud-starter-feign</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
-    <dependency>
-      <groupId>com.liuzm.paascloud</groupId>
-      <artifactId>elastic-job-lite-starter</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.liuzm.paascloud.provider.api</groupId>
-      <artifactId>paascloud-provider-tpc-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.liuzm.paascloud.provider.api</groupId>
-      <artifactId>paascloud-provider-uac-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.retry</groupId>
-      <artifactId>spring-retry</artifactId>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>com.liuzm.paascloud</groupId>
+            <artifactId>elastic-job-lite-starter</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.liuzm.paascloud.provider.api</groupId>
+            <artifactId>paascloud-provider-tpc-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.liuzm.paascloud.provider.api</groupId>
+            <artifactId>paascloud-provider-uac-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dangdang</groupId>
+            <artifactId>elastic-job-common-core</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.dangdang/elastic-job-lite-core -->
+        <dependency>
+            <groupId>com.dangdang</groupId>
+            <artifactId>elastic-job-lite-core</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+
+    </dependencies>
 </project>

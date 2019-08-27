@@ -15,7 +15,6 @@
 
   <modules>
     <module>paascloud-eureka</module>
-    <module>paascloud-config</module>
     <module>paascloud-monitor</module>
     <module>paascloud-zipkin</module>
     <module>paascloud-gateway</module>
