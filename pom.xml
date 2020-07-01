@@ -50,7 +50,7 @@
     <paascloud.version>1.0</paascloud.version>
     <elastic-job.version>2.1.5</elastic-job.version>
     <curator.version>2.10.0</curator.version>
-    <mysql.version>5.1.39</mysql.version>
+    <mysql.version>8.0.16</mysql.version>
     <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
     <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
