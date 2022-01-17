@@ -1,5 +1,7 @@
 ## Spring Cloud 实战项目
 
+[![Maintainability](https://cloud.quality-gate.com/dashboard/api/badge?projectName=paascloud_paascloud-master&branchName=master)](https://cloud.quality-gate.com/dashboard/branches/229972#overview)
+
 ### 项目介绍
 ```
 功能点：
